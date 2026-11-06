@@ -1,0 +1,12 @@
+.venv/
+site/
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+
+# cartella di lavoro di scripts/pptx_to_deck.py (PDF, PNG, profilo di LibreOffice)
+_render/
+
+# librerie delle slide scaricate in locale (npm run vendor)
+docs/assets/vendor/

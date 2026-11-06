@@ -1,0 +1,39 @@
+site_name: ADSS 2026/27 — Slide
+site_description: Slide delle lezioni di Analisi dei dati sperimentali e statistica (moduli 2 e 3), LIUC
+site_url: https://qwertyjacob.github.io/adss_2627/
+repo_url: https://github.com/QwertyJacob/adss_2627
+repo_name: QwertyJacob/adss_2627
+edit_uri: ""
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  language: it
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Passa alla modalità scura
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Passa alla modalità chiara
+  features:
+    - navigation.top
+
+markdown_extensions:
+  - attr_list
+  - tables
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
