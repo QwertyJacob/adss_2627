@@ -1,0 +1,40 @@
+/*
+ * Slide fatte di sole immagini: ogni <section> contiene un'immagine 1280x720
+ * che copre esattamente il riquadro di reveal.js (e quindi il canvas della lavagna).
+ */
+.reveal-viewport {
+  background: #000;
+}
+
+.reveal .slides > section.slide-img {
+  padding: 0;
+  width: 1280px;
+  height: 720px;
+  top: 0;
+  left: 0;
+}
+
+.reveal .slides > section.slide-img > img {
+  display: block;
+  width: 1280px;
+  height: 720px;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  box-shadow: none;
+  background: #fff;
+  /* niente trascinamento o menu dell'immagine sul tablet mentre si scrive */
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Numero di slide e frecce leggibili sopra slide chiare */
+.reveal .slide-number {
+  background: rgba(0, 0, 0, 0.45);
+  font-size: 13px;
+}
+.reveal .controls {
+  color: #1f4e78;
+}
