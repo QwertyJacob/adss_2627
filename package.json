@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "vendor": "bash scripts/fetch_slides_vendor.sh",
+    "test:lavagna": "node scripts/test_lavagna.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0"
+  }
+}
