@@ -13,6 +13,15 @@ Le slide nascono in PowerPoint. Ogni slide diventa un'immagine e ogni lezione un
 - panoramica delle slide (**R** o **Esc**), schermo intero (**F**), puntatore laser (**L**), vista del relatore (**S**);
 - scrittura a mano libera dal tablet, con il proiettore che segue il tablet e viceversa, e la lavagna scura (**W**). La sincronizzazione passa per Supabase Realtime.
 
+Qualche rara slide è invece **scritta a mano in HTML + JavaScript** (reveal.js + GSAP + SVG, come i mazzi del corso PSI), per mostrare dal vivo un effetto che un'immagine non può mostrare: per esempio il cursore che cambia l'ampiezza della finestra di una media mobile. Stanno in `docs/settimana_NN/slides/extra/` e si dichiarano in `extra/slides.json`:
+
+```json
+{"insert": [{"after": 16, "html": "finestra-mobile.html",
+             "css": ["finestra-mobile.css"], "js": ["finestra-mobile.js"]}]}
+```
+
+`after` è il numero della slide del pptx dopo cui inserire il frammento (slide visibili, contate da 1). Lo script legge il frammento, aggiunge CSS e JS al mazzo e carica KaTeX e GSAP solo per i mazzi che hanno slide scritte a mano; il JS può usare `PSI.scene` come nel corso PSI. Il mazzo si rigenera anche quando cambia uno di questi file, senza ridisegnare le immagini del pptx.
+
 ## Struttura
 
 ```text
@@ -21,14 +30,16 @@ docs/settimana_NN/slides/        un mazzo per lezione, generato: non modificarlo
   index.html                     il mazzo
   img/NN-<hash>.webp             una immagine per slide (2560x1440)
   sorgente.json                  da quale pptx viene il mazzo
+  extra/                         (facoltativo) slide scritte a mano, vedi sopra
 docs/assets/slides/
   deck.js                        avvio comune: reveal.js, supabase-js, laser, panoramica
   lavagna.js, lavagna.css        lavagna e sincronizzazione (copia da PSI-VA-2627)
   immagini.css                   impaginazione delle slide immagine
+  scene.js, scenes.css           motore delle scene animate (copia da PSI-VA-2627)
 scripts/
-  pptx_to_deck.py                pptx -> mazzo di immagini
+  pptx_to_deck.py                pptx -> mazzo di immagini (e slide scritte a mano)
   test_lavagna.mjs               test della lavagna nel browser (Playwright)
-  fetch_slides_vendor.sh         copia locale di reveal.js e supabase-js
+  fetch_slides_vendor.sh         copia locale di reveal.js, supabase-js, KaTeX e GSAP
 mkdocs.yml                       configurazione del sito (MkDocs Material)
 ```
 
@@ -38,13 +49,13 @@ mkdocs.yml                       configurazione del sito (MkDocs Material)
 uv run scripts/pptx_to_deck.py percorso/L07_slide.pptx --lezione 7 --data 2026-11-17
 ```
 
-Lo script disegna le slide con LibreOffice e `pdftoppm` (pacchetto poppler-utils). Con `--pdf FILE.pdf` usa invece un PDF esportato da PowerPoint dallo stesso pptx, che riproduce esattamente l'impaginazione di PowerPoint. Le note del relatore del pptx compaiono sul tablet. Se il pptx non è cambiato, lo script non rifà nulla. Le immagini hanno l'hash del contenuto nel nome: git vede solo le slide cambiate e il browser non mostra versioni vecchie.
+Lo script disegna le slide con LibreOffice e `pdftoppm` (pacchetto poppler-utils). Con `--pdf FILE.pdf` usa invece un PDF esportato da PowerPoint dallo stesso pptx, che riproduce esattamente l'impaginazione di PowerPoint. Le note del relatore del pptx compaiono sul tablet. Se il pptx non è cambiato, lo script non rifà nulla. Le immagini hanno l'hash del contenuto nel nome: git vede solo le slide cambiate e il browser non mostra versioni vecchie. Se in `extra/` c'è una slide scritta a mano cambiata, il mazzo si rigenera senza ridisegnare le immagini (non serve LibreOffice).
 
 ## In locale
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r requirements-docs.txt
-npm run vendor                                   # reveal.js e supabase-js in locale
+npm run vendor                                   # reveal.js, supabase-js, KaTeX e GSAP in locale
 .venv/bin/mkdocs serve -a 0.0.0.0:8001           # http://localhost:8001/adss_2627/
 npm install && npm run test:lavagna              # test della lavagna (serve la rete)
 ```

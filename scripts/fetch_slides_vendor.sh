@@ -15,7 +15,7 @@ cd "$(dirname "$0")/.."
 DEST=docs/assets/vendor
 
 specs=$(grep -rhoE '(@[a-z0-9_.-]+/)?[a-z0-9_.-]+@[0-9]+\.[0-9]+\.[0-9]+/dist/' \
-          --include='*.html' --include='*.js' docs/*/slides \
+          --include='*.html' --include='*.js' docs/*/slides docs/assets/slides \
         | sed 's|/dist/$||' | sort -u)
 
 if [[ -z "$specs" ]]; then

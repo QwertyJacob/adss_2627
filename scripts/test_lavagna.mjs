@@ -568,9 +568,33 @@ async function run() {
 
       // Passi rapidi: l'eco del primo non deve riportare indietro chi è già al secondo
       const fragSlide = 10;
-      check('37. Il mazzo è fatto di slide immagine, senza animazioni',
-        await speakerPage.evaluate(() => document.querySelectorAll('.reveal .slides .fragment').length === 0 &&
-          document.querySelectorAll('.reveal .slides > section.slide-img > img').length === window.Reveal.getTotalSlides()));
+      // Il mazzo è fatto di slide immagine; l'unica eccezione ammessa è una slide
+      // scritta a mano (extra/), che ha i suoi frammenti ma non tocca le immagini.
+      const deckShape = await speakerPage.evaluate(() => {
+        const slides = Array.from(document.querySelectorAll('.reveal .slides > section'));
+        const hand = slides.filter((s) => s.classList.contains('fm-slide'));
+        const images = slides.filter((s) => s.matches('.slide-img') && s.querySelector(':scope > img'));
+        const fromFragments = new Set(Array.from(document.querySelectorAll('.reveal .slides .fragment'))
+          .map((f) => f.closest('.reveal .slides > section')));
+        return {
+          total: window.Reveal.getTotalSlides(),
+          slides: slides.length,
+          images: images.length,
+          hand: hand.length,
+          fragmentsOutsideHand: Array.from(fromFragments)
+            .filter((s) => !s || !hand.includes(s)).map((s) => s && (s.id || s.className))
+        };
+      });
+      check('37. Il mazzo è fatto di slide immagine (più eventuali slide scritte a mano)',
+        deckShape.slides === deckShape.total &&
+        deckShape.images === deckShape.slides - deckShape.hand &&
+        deckShape.hand <= 1 &&
+        deckShape.fragmentsOutsideHand.length === 0);
+      if (deckShape.slides !== deckShape.total ||
+          deckShape.images !== deckShape.slides - deckShape.hand ||
+          deckShape.hand > 1 || deckShape.fragmentsOutsideHand.length) {
+        console.log('   forma del mazzo:', deckShape);
+      }
       await speakerPage.evaluate((h) => window.Reveal.slide(h, 0, -1), fragSlide);
       await eventually(async () => (await slideH(projPage)) === fragSlide);
       await speakerPage.click('.psi-tb-nav-btn[title="Slide / animazione successiva"]');

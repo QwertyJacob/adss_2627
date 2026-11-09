@@ -14,11 +14,16 @@
  *   <body>   <div class="reveal"><div class="slides"> ... </div></div>
  *            <script>ADSSDeck.start();</script>
  *
- * Carica reveal.js e supabase-js dalla copia locale in assets/vendor
- * (npm run vendor, esclusa da git), così le slide funzionano anche in locale
- * senza rete; dove la copia manca, come sul sito pubblicato, ogni file ripiega
- * sulla stessa versione dal CDN. Le versioni stanno solo qui: lo script
- * scripts/fetch_slides_vendor.sh le legge da questo file.
+ * I mazzi con qualche slide scritta a mano (cartella extra/, vedi
+ * scripts/pptx_to_deck.py) caricano in più KaTeX e GSAP e chiamano
+ * ADSSDeck.start({ extra: true }); così possono usare scene.js e le formule.
+ *
+ * Carica reveal.js, supabase-js (e, se servono, KaTeX e GSAP) dalla copia
+ * locale in assets/vendor (npm run vendor, esclusa da git), così le slide
+ * funzionano anche in locale senza rete; dove la copia manca, come sul sito
+ * pubblicato, ogni file ripiega sulla stessa versione dal CDN. Le versioni
+ * stanno solo qui: lo script scripts/fetch_slides_vendor.sh le legge da
+ * questo file.
  */
 (function () {
   'use strict';
@@ -35,6 +40,13 @@
     'reveal.js@5.1.0/dist/reveal.js',
     '@supabase/supabase-js@2.48.1/dist/umd/supabase.js',
     'reveal.js@5.1.0/plugin/notes/notes.js' // vista del relatore: tasto S
+  ];
+  // Solo per i mazzi con slide scritte a mano (options.extra).
+  var EXTRA_CSS = ['katex@0.18.9/dist/katex.min.css'];
+  var EXTRA_JS = [
+    'katex@0.18.9/dist/katex.min.js',
+    'katex@0.18.9/dist/contrib/auto-render.min.js',
+    'gsap@3.15.0/dist/gsap.min.js'
   ];
 
   // Canali Realtime e PIN propri di ADSS: il progetto Supabase è lo stesso di PSI.
@@ -116,12 +128,47 @@
   }
 
   // options.reveal: opzioni aggiuntive per Reveal.initialize;
+  // options.extra: true se il mazzo ha slide scritte a mano (KaTeX + GSAP +
+  //   scene.js + assets/slides/scenes.css), come i mazzi del corso PSI;
+  // options.extraScripts: i file JS delle slide scritte a mano, caricati dopo
+  //   scene.js e prima di buildScenes (possono chiamare PSI.scene);
   // options.onReady(deck): codice da eseguire quando reveal è pronto.
   function start(options) {
     options = Object.assign({}, LAVAGNA, options || {});
-    return load(JS).then(function () {
-      return script(ASSETS + 'slides/lavagna.js').catch(function () {});
+    var extra = !!options.extra;
+    var extraScripts = options.extraScripts || [];
+    var css = extra ? CSS.concat(EXTRA_CSS) : CSS;
+    var js = extra ? JS.concat(EXTRA_JS) : JS;
+    css.forEach(function (path) { sheet(VENDOR + path, CDN + path); });
+    sheet(ASSETS + 'slides/lavagna.css');
+    sheet(ASSETS + 'slides/immagini.css');
+    if (extra) sheet(ASSETS + 'slides/scenes.css');
+
+    return load(js).then(function () {
+      var chain = script(ASSETS + 'slides/lavagna.js').catch(function () {});
+      if (extra) {
+        chain = chain.then(function () {
+          return script(ASSETS + 'slides/scene.js').catch(function () {});
+        }).then(function () {
+          return extraScripts.reduce(function (next, src) {
+            return next.then(function () { return script(src); });
+          }, Promise.resolve());
+        });
+      }
+      return chain;
     }).then(function () {
+      if (extra && window.renderMathInElement) {
+        window.renderMathInElement(document.querySelector('.reveal .slides'), {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false },
+            { left: '\\(', right: '\\)', display: false },
+            { left: '\\[', right: '\\]', display: true }
+          ],
+          throwOnError: false
+        });
+      }
+      if (extra && window.PSI) window.PSI.buildScenes();
       Reveal.initialize(Object.assign({
         // Le immagini sono 16:9 come il canvas della lavagna (1280x720):
         // senza margine la slide riempie lo schermo e i tratti cadono al loro posto.
@@ -135,9 +182,13 @@
         hash: true,
         transition: 'none',
         backgroundTransition: 'none',
+        // Nell'export PDF ogni slide scritta a mano è una pagina sola, nello
+        // stato finale (le slide immagine non hanno frammenti).
+        pdfSeparateFragments: false,
         plugins: window.RevealNotes ? [RevealNotes] : []
       }, options.reveal));
       Reveal.on('ready', function () {
+        if (extra && window.PSI) window.PSI.bindScenes(Reveal);
         Reveal.addKeyBinding({ keyCode: 82, key: 'R', description: 'Apri/chiudi la panoramica delle slide' }, function () {
           Reveal.toggleOverview();
         });
