@@ -1,0 +1,265 @@
+/*
+ * Slide scritta a mano: la finestra della media mobile (dopo la slide 16).
+ * Stile chiaro, come le slide immagine del pptx intorno: Arial, fondo bianco.
+ * Scena: extra/finestra-mobile.js.
+ */
+
+/* Discendente, non figlia diretta: nella vista di stampa reveal sposta le
+   section dentro .pdf-page e le regole con > non si applicherebbero più. */
+.reveal .slides section.fm-slide {
+  padding: 0;
+  width: 1280px;
+  height: 720px;
+  top: 0;
+  left: 0;
+  background: #fff;
+  color: #1f2937;
+  text-align: left;
+}
+
+.reveal .fm-inner {
+  display: grid;
+  grid-template-columns: 752px 1fr;
+  gap: 26px;
+  box-sizing: border-box;
+  width: 1280px;
+  height: 720px;
+  padding: 24px 34px 0 40px;
+}
+
+.reveal .fm-main {
+  min-width: 0;
+}
+
+.reveal .fm-badge {
+  display: inline-block;
+  margin: 0 0 8px;
+  padding: 4px 14px;
+  border-radius: 16px;
+  background: #eaf1fd;
+  color: #1f4e78;
+  font: 700 16px Arial, Helvetica, sans-serif;
+  letter-spacing: .4px;
+}
+
+.reveal .fm-title {
+  margin: 0 0 8px;
+  color: #111827;
+  font: 700 34px/1.14 Arial, Helvetica, sans-serif;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.reveal .fm-lead {
+  margin: 0 0 6px;
+  color: #374151;
+  font: 20px/1.35 Arial, Helvetica, sans-serif;
+}
+
+.reveal .fm-lead b {
+  color: #b91c1c;
+}
+
+.reveal .fm-svg {
+  display: block;
+  margin: 0;
+}
+
+.reveal .fm-source {
+  margin: 2px 0 0;
+  color: #6b7280;
+  font: 13px/1.3 Arial, Helvetica, sans-serif;
+}
+
+/* ── Pannello destro ── */
+
+.reveal .fm-panel {
+  padding: 4px 0 0 22px;
+  border-left: 1px solid #e5e7eb;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.reveal .fm-slider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+}
+
+.reveal .fm-slider-lab {
+  color: #374151;
+  font-size: 18px;
+}
+
+.reveal .fm-slider input[type=range] {
+  flex: 1;
+  min-width: 0;
+  height: 28px;
+  margin: 0;
+  accent-color: #ed4335;
+}
+
+.reveal .fm-k {
+  display: inline-block;
+  min-width: 2.4em;
+  padding: 3px 8px;
+  border-radius: 8px;
+  background: #fde8e6;
+  color: #b91c1c;
+  font-size: 22px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.reveal .fm-kline {
+  margin: 2px 0 14px 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.reveal .fm-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.reveal .fm-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  row-gap: 5px;
+  column-gap: 10px;
+  align-items: baseline;
+}
+
+.reveal .fm-lab {
+  color: #4b5563;
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.reveal .fm-row b {
+  color: #111827;
+  font-size: 21px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.reveal .fm-bar {
+  grid-column: 1 / -1;
+  display: block;
+  height: 7px;
+  border-radius: 4px;
+  background: #e5e7eb;
+  overflow: hidden;
+  position: relative;
+}
+
+.reveal .fm-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--w, 0%);
+  border-radius: 4px;
+  background: #9ca3af;
+  transition: width .12s linear;
+}
+
+.reveal .fm-b1::after { background: #4684f1; }
+.reveal .fm-b2::after { background: #ed4335; }
+.reveal .fm-b3::after { background: #38aa57; }
+
+.reveal .fm-def {
+  margin: 16px 0 12px;
+  padding: 2px 14px;
+  border-left: 4px solid #ed4335;
+  background: #f9fafb;
+  border-radius: 8px;
+  color: #111827;
+}
+
+.reveal .fm-def .katex {
+  font-size: 1.1em;
+}
+
+.reveal .fm-def .katex-display {
+  margin: .45em 0;
+}
+
+.reveal .fm-notes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reveal .fm-notes li {
+  position: relative;
+  margin: 0 0 9px;
+  padding-left: 18px;
+  color: #4b5563;
+  font-size: 16px;
+  line-height: 1.35;
+  opacity: .32;
+  transition: opacity .25s, color .25s;
+}
+
+.reveal .fm-notes li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .5em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #cbd5e1;
+}
+
+.reveal .fm-notes li.on {
+  opacity: 1;
+  color: #1f2937;
+}
+
+.reveal .fm-notes li.on::before {
+  background: #ed4335;
+}
+
+.reveal .fm-hint {
+  margin: 14px 0 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #f3f4f6;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+/* ── Testi dentro il grafico (SVG) ── */
+
+.reveal .fm-svg text {
+  font-family: Arial, Helvetica, sans-serif;
+  fill: #4b5563;
+}
+
+.reveal .fm-svg .fm-axis-label {
+  font-size: 14px;
+}
+
+.reveal .fm-svg .fm-tick {
+  font-size: 13px;
+  fill: #6b7280;
+}
+
+.reveal .fm-svg .fm-band-label {
+  font-size: 14px;
+  font-weight: 700;
+  fill: #1f4e78;
+}
+
+.reveal .fm-svg .fm-dot-label {
+  font-size: 15px;
+  font-weight: 700;
+  fill: #b91c1c;
+}
+
+.reveal .fm-svg .fm-legend {
+  font-size: 14px;
+}

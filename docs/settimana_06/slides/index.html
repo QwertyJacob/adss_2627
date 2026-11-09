@@ -7,6 +7,7 @@
   <link rel="icon" href="data:,">
   <!-- Generato da scripts/pptx_to_deck.py a partire da L06_slide.pptx: non modificare a mano. -->
   <script src="../../assets/slides/deck.js"></script>
+  <link rel="stylesheet" href="extra/finestra-mobile.css">
 </head>
 <body>
   <div class="reveal"><div class="slides">
@@ -26,6 +27,55 @@
     <section class="slide-img"><img src="img/14-4d23d66e90.webp" width="1280" height="720" alt="Statistiche per serie storiche: statistiche progressive · Di questa serie (1 feb - 14 nov 2020) si può calcolare la media campionaria, che però non è particolarmente significativa · Possiamo calcolare una statistica (la media, per esempio) mentre la serie si forma: si chiama media progressiva"></section>
     <section class="slide-img"><img src="img/15-10213a93c8.webp" width="1280" height="720" alt="Esempio: media progressiva · Di una serie storica A =〈ai〉 la media campionaria è un numero · mentre la media progressiva della sotto-serie Aj (la serie A fino al giorno di indice j) è a sua volta una serie storica · (notate che la formula è la stessa: la si usa solo in modo diverso) · Proprietà della media progressiva: converge alla media campionaria ( ) perde di sensibilità all’aumentare del numero di elementi della serie"></section>
     <section class="slide-img"><img src="img/16-a13450dee0.webp" width="1280" height="720" alt="Statistiche per serie storiche: statistiche mobili · Di una serie storica possiamo calcolare una statistica (la media, per esempio) mentre la serie si forma e in riferimento solo ai più recenti k elementi della serie: si chiama media mobile · (notate che è sempre una media aritmetica) · Proprietà della media mobile: produce una serie smoothed aumenta l’effetto di smoothing all’aumentare del numero di elementi k della sliding window"></section>
+<section id="finestra-mobile" class="fm-slide">
+      <div class="fm-inner">
+        <div class="fm-main">
+          <p class="fm-badge">Statistiche mobili · ampiezza della finestra</p>
+          <h2 class="fm-title">Quanto è lunga la finestra? Lo dice la curva</h2>
+          <p class="fm-lead">Media mobile su <b>k</b> giorni: più <b>k</b> cresce, più la curva è liscia e più pesa il passato.</p>
+          <svg class="fm-svg" width="740" height="430" viewBox="0 0 740 430" role="img"
+               aria-label="Ritardi giornalieri dei treni a Gallarate da maggio a luglio 2024 e la loro media mobile. Al crescere dei giorni della finestra la curva diventa più liscia, il picco si abbassa e il ritardo aumenta."></svg>
+          <p class="fm-source">Ritardi dei treni alla stazione di Gallarate, 1 maggio – 31 luglio 2024 (92 giorni). Dati: CoMuNeLab, <i>adaptsys_train-delays</i> (licenza MIT).</p>
+        </div>
+
+        <div class="fm-panel" data-prevent-swipe>
+          <label class="fm-slider">
+            <span class="fm-slider-lab">finestra <b>k</b></span>
+            <input type="range" min="1" max="30" step="1" value="1" aria-label="Ampiezza della finestra, in giorni">
+            <b class="fm-k">1</b>
+          </label>
+          <p class="fm-kline">giorni che entrano nella media</p>
+
+          <div class="fm-rows">
+            <div class="fm-row">
+              <span class="fm-lab">scarto medio da un giorno all'altro</span>
+              <b class="fm-r1">204 min</b>
+              <i class="fm-bar fm-b1"></i>
+            </div>
+            <div class="fm-row">
+              <span class="fm-lab">il massimo della curva</span>
+              <b class="fm-r2">1598 min</b>
+              <i class="fm-bar fm-b2"></i>
+            </div>
+            <div class="fm-row">
+              <span class="fm-lab">peso di ogni giorno nella media</span>
+              <b class="fm-r3">100%</b>
+              <i class="fm-bar fm-b3"></i>
+            </div>
+          </div>
+
+          <div class="fm-def">$$m_{A_{j,k}}=\frac{1}{k}\sum_{i=j-k+1}^{j}a_i$$</div>
+
+          <ul class="fm-notes">
+            <li>Con 2–4 giorni la curva segue quasi ogni oscillazione.</li>
+            <li>Con 7 giorni si attenua il ciclo della settimana.</li>
+            <li>Con 20–30 giorni è liscia, ma i picchi si appiattiscono.</li>
+          </ul>
+          <p class="fm-hint">Trascina il cursore: la banda blu è la finestra che produce il punto rosso del 10 giugno.</p>
+        </div>
+      </div>
+      <aside class="notes">Slide nuova (HTML + JavaScript). Il punto didattico è uno solo: la finestra k decide che cosa chiamiamo «andamento» e che cosa «rumore». Tre avanzamenti: k = 1 (la serie grezza: scarto medio da un giorno all'altro 204 minuti, massimo 1598 il 10 giugno); k = 7 (una settimana: si cancella il ciclo settimanale, lo scarto scende a 24 minuti, il picco a 887, ogni giorno pesa 1/7); k = 30 (un mese: scarto 9 minuti, picco 695, ogni giorno pesa 1/30). Poi lascia il cursore agli studenti e chiedi che cosa succede al picco e perché. Attenzione: qui il massimo della media mobile può cadere prima del 10 giugno, perché la finestra mescola giorni diversi e il picco isolato viene diluito; è il segno che la media mobile non «trova il massimo», lo sostituisce con un valore medio. Collegamento al laboratorio: in Excel =MEDIA(B2:B6) è una finestra di 5 righe, =MEDIA(B2:B21) di 20; k si cambia spostando l'estremo sinistro dell'intervallo. È lo stesso motivo per cui la media mobile 20 «resta indietro» rispetto alla serie.</aside>
+    </section>
     <section class="slide-img"><img src="img/17-12b7a04359.webp" width="1280" height="720" alt="La statistica descrittiva fornisce strumenti per produrre sintesi significative di dati, anche di serie storiche · Dataset · Popolazione · sintesi · sintesi · di dati · sintesi · Distribuzioni · Campioni · numerici · sintesi · sintesi · ordinali · categorici · Serie storiche · Statistiche · di posizione · di dispersione · sintesi · altre (di simmetria, relazione, …) · Statistiche · campionarie · progressive · mobili"></section>
     <section class="slide-img"><img src="img/18-4e7b83033c.webp" width="1280" height="720" alt="Campionaria, progressiva, mobile: è tutta questione di $ · Formula scritta nella riga 6 e ricopiata in basso: =MEDIA($B$2:$B$101) media campionaria: sempre lo stesso intervallo, un solo numero =MEDIA($B$2:B6) media progressiva: il primo estremo è fermo, il secondo scende → la finestra si allunga: tutti i valori fino a oggi =MEDIA(B2:B6) media mobile: scendono entrambi gli estremi → la finestra scorre: solo gli ultimi 5 valori"></section>
     <section class="slide-img"><img src="img/19-8f079447c7.webp" width="1280" height="720" alt="Ancora sulla media mobile · Per esempio, se j = 6 e k = 4: · e calcola il prodotto scalare dei due vettori nella finestra · ¼ ¼ ¼ ¼ · y1 y2 y3 y4 y5 y6 y7 ... · Implementiamo il calcolo della media mobile in questo modo"></section>
@@ -36,6 +86,6 @@
     <section class="slide-img"><img src="img/24-49b009a5fa.webp" width="1280" height="720" alt="In sintesi · RIEPILOGO · • Statistiche campionarie: un numero solo, ignorano l&#x27;ordine • Statistiche progressive: usano tutti i valori fino a oggi; la media progressiva arriva alla media campionaria e diventa sempre meno sensibile • Statistiche mobili: usano solo gli ultimi k valori; lisciano la serie; più k è grande, più la serie è liscia e più è in ritardo • In Excel la differenza è tutta nei $: $B$2:$B$101 · $B$2:B6 · B2:B6 La prossima volta (17/11): una serie interpretata con una retta"></section>
     <section class="slide-img"><img src="img/25-d29b2d48c7.webp" width="1280" height="720" alt="Biglietto d&#x27;uscita · BIGLIETTO D&#x27;USCITA · Rispondi su un foglietto (3 minuti), senza nome: 1. In D2 scrivi =MEDIA($B$2:B2) e la ricopi in basso. Che statistica ottieni? 2. Media mobile su 5 valori o su 20 valori: quale è più liscia? Quale reagisce prima a un cambiamento della serie? 3. Un cammino casuale parte da 0 e a ogni passo aggiunge un numero a caso tra −1 e +2. Dove ti aspetti che sia, più o meno, dopo 100 passi?"></section>
   </div></div>
-  <script>ADSSDeck.start();</script>
+  <script>ADSSDeck.start({ extra: true, extraScripts: ["extra/finestra-mobile.js"] });</script>
 </body>
 </html>

@@ -1,0 +1,10 @@
+{
+  "insert": [
+    {
+      "after": 16,
+      "html": "finestra-mobile.html",
+      "css": ["finestra-mobile.css"],
+      "js": ["finestra-mobile.js"]
+    }
+  ]
+}
