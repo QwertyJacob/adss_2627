@@ -30,6 +30,33 @@
   -webkit-touch-callout: none;
 }
 
+/*
+ * Link del pptx: aree trasparenti sopra l'immagine, nel punto del testo o della
+ * figura collegata (pptx_to_deck.py prende le posizioni dal PDF). Selettore
+ * discendente, non figlio: nella vista di stampa reveal sposta le sezioni dentro
+ * .pdf-page. Stanno sotto il canvas della lavagna (z-index 45): con ?pen la penna
+ * scrive sopra i link, altrove il canvas lascia passare i clic.
+ */
+.reveal .slides section.slide-img > a.slide-link {
+  position: absolute;
+  display: block;
+  z-index: 1;
+  border-radius: 4px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.reveal .slides section.slide-img > a.slide-link:hover,
+.reveal .slides section.slide-img > a.slide-link:focus-visible {
+  background: rgba(17, 85, 204, 0.12);
+  box-shadow: 0 0 0 2px rgba(17, 85, 204, 0.6);
+  outline: none;
+}
+
+/* In panoramica un tocco sulla miniatura apre la slide, non il link */
+.reveal.overview .slides section.slide-img > a.slide-link {
+  pointer-events: none;
+}
+
 /* Numero di slide e frecce leggibili sopra slide chiare */
 .reveal .slide-number {
   background: rgba(0, 0, 0, 0.45);

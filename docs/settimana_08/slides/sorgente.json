@@ -4,7 +4,8 @@
   "sha256": "cde8c7a204444526764894d300ddd286a8d5b06cf56417daa6b0bc4f08a2102f",
   "pdf_sha256": null,
   "motore": "LibreOffice",
-  "formato": 1,
+  "formato": 3,
+  "extra": "",
   "titolo": "Lezione 8 · Oltre la retta: logaritmo e analisi dei residui",
   "argomento": "Oltre la retta: logaritmo e analisi dei residui",
   "data": "2026-11-24",
@@ -33,5 +34,82 @@
     "21-dcdf11d962.webp",
     "22-fd9e8e1b36.webp",
     "23-eb6ad521ca.webp"
-  ]
+  ],
+  "link": {
+    "1": [
+      {
+        "href": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+        "x": 389.8,
+        "y": 667.7,
+        "w": 169.1,
+        "h": 16.9
+      },
+      {
+        "href": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+        "x": 557.7,
+        "y": 667.7,
+        "w": 200.8,
+        "h": 16.9
+      },
+      {
+        "href": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+        "x": 62.0,
+        "y": 687.2,
+        "w": 487.7,
+        "h": 16.9
+      }
+    ],
+    "2": [
+      {
+        "href": "https://ecorsi.liuc.it/course/view.php?id=18767",
+        "x": 50.2,
+        "y": 424.6,
+        "w": 579.7,
+        "h": 26.6
+      }
+    ],
+    "3": [
+      {
+        "href": "https://drive.google.com/file/d/1tVFi3zwD9_Qdw9AJzTdT7R1vXjkv0BwZ/view?usp=share_link",
+        "x": 342.5,
+        "y": 598.1,
+        "w": 376.1,
+        "h": 23.3
+      },
+      {
+        "href": "https://docs.google.com/document/d/1atYyygjgyBzWMaanrOUhmyN5LwV-Qu7Wel4uypHUvGA/edit?usp=sharing",
+        "x": 756.0,
+        "y": 628.0,
+        "w": 210.9,
+        "h": 23.3
+      }
+    ],
+    "7": [
+      {
+        "href": "https://docs.google.com/spreadsheets/d/1wDGPAmLwfL0hse2yXhFQWJoZV1L9SCmvyHXFUdAzXWs/edit#gid=853002892",
+        "x": 658.9,
+        "y": 203.9,
+        "w": 578.4,
+        "h": 357.3
+      }
+    ],
+    "9": [
+      {
+        "href": "https://docs.google.com/spreadsheets/d/1wDGPAmLwfL0hse2yXhFQWJoZV1L9SCmvyHXFUdAzXWs/edit#gid=676040892",
+        "x": 178.6,
+        "y": 124.0,
+        "w": 922.7,
+        "h": 565.8
+      }
+    ],
+    "10": [
+      {
+        "href": "https://docs.google.com/spreadsheets/d/1wDGPAmLwfL0hse2yXhFQWJoZV1L9SCmvyHXFUdAzXWs/edit#gid=242186523",
+        "x": 313.6,
+        "y": 111.5,
+        "w": 652.7,
+        "h": 403.5
+      }
+    ]
+  }
 }

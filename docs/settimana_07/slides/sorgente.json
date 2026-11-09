@@ -4,7 +4,8 @@
   "sha256": "d619d05206e1aa89fead5f5a4a7fac15e2195d63cc7fef5f5ed9dc934963ffa7",
   "pdf_sha256": null,
   "motore": "LibreOffice",
-  "formato": 1,
+  "formato": 3,
+  "extra": "",
   "titolo": "Lezione 7 · Un modello per le serie storiche: la retta di regressione",
   "argomento": "Un modello per le serie storiche: la retta di regressione",
   "data": "2026-11-17",
@@ -34,5 +35,100 @@
     "22-d581b4638b.webp",
     "23-4f93fdacd2.webp",
     "24-0ce523ce87.webp"
-  ]
+  ],
+  "link": {
+    "1": [
+      {
+        "href": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+        "x": 389.8,
+        "y": 667.7,
+        "w": 169.1,
+        "h": 16.9
+      },
+      {
+        "href": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+        "x": 557.7,
+        "y": 667.7,
+        "w": 200.8,
+        "h": 16.9
+      },
+      {
+        "href": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+        "x": 62.0,
+        "y": 687.2,
+        "w": 487.7,
+        "h": 16.9
+      }
+    ],
+    "2": [
+      {
+        "href": "https://ecorsi.liuc.it/course/view.php?id=18767",
+        "x": 50.2,
+        "y": 424.6,
+        "w": 579.7,
+        "h": 26.6
+      }
+    ],
+    "3": [
+      {
+        "href": "https://drive.google.com/file/d/1tVFi3zwD9_Qdw9AJzTdT7R1vXjkv0BwZ/view?usp=share_link",
+        "x": 342.5,
+        "y": 598.1,
+        "w": 376.1,
+        "h": 23.3
+      },
+      {
+        "href": "https://docs.google.com/document/d/1atYyygjgyBzWMaanrOUhmyN5LwV-Qu7Wel4uypHUvGA/edit?usp=sharing",
+        "x": 756.0,
+        "y": 628.0,
+        "w": 210.9,
+        "h": 23.3
+      }
+    ],
+    "6": [
+      {
+        "href": "https://docs.google.com/spreadsheets/d/1wDGPAmLwfL0hse2yXhFQWJoZV1L9SCmvyHXFUdAzXWs/edit#gid=1018351354&range=G57",
+        "x": 667.2,
+        "y": 290.7,
+        "w": 538.3,
+        "h": 332.8
+      }
+    ],
+    "7": [
+      {
+        "href": "https://docs.google.com/spreadsheets/d/1wDGPAmLwfL0hse2yXhFQWJoZV1L9SCmvyHXFUdAzXWs/edit#gid=1018351354&range=G76",
+        "x": 692.2,
+        "y": 334.1,
+        "w": 567.1,
+        "h": 350.6
+      }
+    ],
+    "8": [
+      {
+        "href": "https://docs.google.com/spreadsheets/d/1wDGPAmLwfL0hse2yXhFQWJoZV1L9SCmvyHXFUdAzXWs/edit#gid=1018351354&range=G76",
+        "x": 356.4,
+        "y": 200.1,
+        "w": 567.1,
+        "h": 350.6
+      }
+    ],
+    "9": [
+      {
+        "href": "https://docs.google.com/spreadsheets/d/1wDGPAmLwfL0hse2yXhFQWJoZV1L9SCmvyHXFUdAzXWs/edit#gid=853002892&range=E5",
+        "x": 815.1,
+        "y": 432.8,
+        "w": 447.2,
+        "h": 276.0
+      }
+    ],
+    "16": [
+      {
+        "href": "https://docs.google.com/spreadsheets/d/1wDGPAmLwfL0hse2yXhFQWJoZV1L9SCmvyHXFUdAzXWs/edit#gid=853002892&range=E5",
+        "x": 815.1,
+        "y": 458.2,
+        "w": 406.0,
+        "h": 250.7
+      }
+    ]
+  }
 }

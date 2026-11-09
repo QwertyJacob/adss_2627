@@ -4,7 +4,8 @@
   "sha256": "7eaf77fc381268d26a0dd21a16744a0b65d7847c242bef6152213dd6c368051a",
   "pdf_sha256": null,
   "motore": "LibreOffice",
-  "formato": 1,
+  "formato": 3,
+  "extra": "",
   "titolo": "Lezione 9 · Controllo statistico di processo",
   "argomento": "Controllo statistico di processo",
   "data": "2026-12-01",
@@ -33,5 +34,64 @@
     "21-28d5431d93.webp",
     "22-c7b91f1e9f.webp",
     "23-03bc639988.webp"
-  ]
+  ],
+  "link": {
+    "1": [
+      {
+        "href": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+        "x": 389.8,
+        "y": 667.7,
+        "w": 169.1,
+        "h": 16.9
+      },
+      {
+        "href": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+        "x": 557.7,
+        "y": 667.7,
+        "w": 200.8,
+        "h": 16.9
+      },
+      {
+        "href": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+        "x": 62.0,
+        "y": 687.2,
+        "w": 487.7,
+        "h": 16.9
+      }
+    ],
+    "2": [
+      {
+        "href": "https://ecorsi.liuc.it/course/view.php?id=18767",
+        "x": 50.2,
+        "y": 424.6,
+        "w": 579.7,
+        "h": 26.6
+      }
+    ],
+    "3": [
+      {
+        "href": "https://drive.google.com/file/d/1tVFi3zwD9_Qdw9AJzTdT7R1vXjkv0BwZ/view?usp=share_link",
+        "x": 342.5,
+        "y": 598.1,
+        "w": 376.1,
+        "h": 23.3
+      },
+      {
+        "href": "https://docs.google.com/document/d/1atYyygjgyBzWMaanrOUhmyN5LwV-Qu7Wel4uypHUvGA/edit?usp=sharing",
+        "x": 756.0,
+        "y": 628.0,
+        "w": 210.9,
+        "h": 23.3
+      }
+    ],
+    "9": [
+      {
+        "href": "https://docs.google.com/document/d/1x0KJKpEakp_YWJ33QI-YlhRpV8Gwlm6a5hw4_aGcSrU",
+        "x": 12.4,
+        "y": 677.0,
+        "w": 599.9,
+        "h": 13.4
+      }
+    ]
+  }
 }

@@ -1,6 +1,6 @@
 # /// script
 # requires-python = ">=3.10"
-# dependencies = ["python-pptx>=1.0", "pillow>=10"]
+# dependencies = ["python-pptx>=1.0", "pillow>=10", "pypdf>=4"]
 # ///
 """Trasforma un file PowerPoint in un mazzo di slide del sito: una immagine per slide.
 
@@ -19,6 +19,11 @@ Le slide si disegnano con LibreOffice (pptx -> PDF) e pdftoppm (PDF -> PNG).
 Con --pdf si usa invece un PDF già esportato da PowerPoint (File > Esporta > PDF),
 che riproduce esattamente l'impaginazione di PowerPoint.
 Le note del relatore del pptx diventano le note che lavagna.js mostra sul tablet.
+I collegamenti ipertestuali del pptx (su un testo o su una figura) restano
+cliccabili: LibreOffice e PowerPoint li scrivono nel PDF con il loro rettangolo,
+e il mazzo mette sopra l'immagine un link trasparente nello stesso punto. Le
+posizioni sono salvate in sorgente.json («link»), per non ridisegnare le slide
+quando cambia solo l'HTML.
 Se il pptx (e l'eventuale PDF) non sono cambiati dall'ultima volta, non rifà nulla.
 
 Slide scritte a mano (HTML + JavaScript), come quelle del corso PSI, dentro un
@@ -53,6 +58,7 @@ from pathlib import Path
 
 from PIL import Image
 from pptx import Presentation
+from pypdf import PdfReader
 from pptx.enum.shapes import MSO_SHAPE_TYPE
 
 REPO = Path(__file__).resolve().parents[1]
@@ -62,8 +68,11 @@ WORK = REPO / "_render"
 # Cambia quando cambia il formato dell'index.html: rigenera il mazzo anche se il
 # pptx non è cambiato. Le immagini restano quelle già in img/ (sono funzione del
 # pptx): per rifarle comunque, usa --forza o cancella la cartella img/.
-FORMATO = 2
+FORMATO = 3
 W, H = 2560, 1440
+SW, SH = 1280, 720  # dimensioni della slide nel mazzo (CSS px)
+# Solo questi link diventano cliccabili (niente javascript: o file locali).
+SCHEMI_LINK = ("http://", "https://", "mailto:")
 
 MODULI = {
     2: ("Modulo 2", "Serie storiche, regressione, controllo di processo", range(6, 11)),
@@ -191,6 +200,45 @@ def pdf_to_pngs(pdf: Path, tmp: Path) -> list[Path]:
     return sorted(tmp.glob("p-*.png"), key=lambda p: int(p.stem.split("-")[1]))
 
 
+def pdf_links(pdf: Path) -> list[list[dict]]:
+    """I link di ogni pagina del PDF, in px della slide del mazzo (1280x720).
+
+    Stessa impaginazione di to_webp: una pagina 16:9 riempie la slide, le altre
+    sono centrate. Un testo collegato che va a capo dà un rettangolo per riga.
+    """
+    pages = []
+    for page in PdfReader(str(pdf)).pages:
+        box = page.mediabox  # pdftoppm disegna la media box
+        pw, ph = float(box.width), float(box.height)
+        x0p, y1p = float(box.left), float(box.top)
+        if abs(pw / ph - W / H) < 0.01:
+            sx, sy, ox, oy = SW / pw, SH / ph, 0.0, 0.0
+        else:
+            sx = sy = min(SW / pw, SH / ph)
+            ox, oy = (SW - pw * sx) / 2, (SH - ph * sy) / 2
+        links = []
+        for ref in page.get("/Annots") or []:
+            annot = ref.get_object()
+            action = annot.get("/A")
+            action = action.get_object() if action is not None else None
+            if annot.get("/Subtype") != "/Link" or not action or action.get("/S") != "/URI":
+                continue
+            href = str(action.get("/URI", "")).strip()
+            if not href.lower().startswith(SCHEMI_LINK):
+                continue
+            ax0, ay0, ax1, ay1 = (float(v) for v in annot["/Rect"])
+            left = max(0.0, ox + (min(ax0, ax1) - x0p) * sx)
+            top = max(0.0, oy + (y1p - max(ay0, ay1)) * sy)
+            right = min(float(SW), ox + (max(ax0, ax1) - x0p) * sx)
+            bottom = min(float(SH), oy + (y1p - min(ay0, ay1)) * sy)
+            if right - left < 1 or bottom - top < 1:
+                continue
+            links.append({"href": href, "x": round(left, 1), "y": round(top, 1),
+                          "w": round(right - left, 1), "h": round(bottom - top, 1)})
+        pages.append(links)
+    return pages
+
+
 def to_webp(png: Path) -> bytes:
     im = Image.open(png).convert("RGB")
     if abs(im.width / im.height - W / H) < 0.01:  # 16:9, al pixel di arrotondamento
@@ -228,11 +276,20 @@ PAGE = """<!DOCTYPE html>
 """
 
 
-def section(img: str, slide: dict) -> str:
+def link_tag(link: dict) -> str:
+    style = f'left:{link["x"]:g}px;top:{link["y"]:g}px;width:{link["w"]:g}px;height:{link["h"]:g}px'
+    href = html.escape(link["href"])
+    return (f'<a class="slide-link" href="{href}" target="_blank" rel="noopener" '
+            f'style="{style}" aria-label="{href}"></a>')
+
+
+def section(img: str, slide: dict, links: list[dict]) -> str:
     alt = slide["text"] or "slide"
     if len(alt) > 600:
         alt = alt[:597].rstrip() + "…"
     out = f'    <section class="slide-img"><img src="img/{img}" width="1280" height="720" alt="{html.escape(alt)}">'
+    for link in links:
+        out += "\n      " + link_tag(link)
     if slide["notes"]:
         notes = "<br>".join(html.escape(line) for line in slide["notes"].splitlines())
         out += f'\n      <aside class="notes">{notes}</aside>\n    '
@@ -280,44 +337,50 @@ def build(args) -> None:
     imgdir.mkdir(parents=True, exist_ok=True)
     # Cambiata solo una slide scritta a mano o il formato dell'HTML (FORMATO):
     # le immagini restano quelle di prima, così non si ridisegna tutto il mazzo
-    # (e git non vede slide cambiate). Compatibile con LibreOffice non disponibile.
+    # (e git non vede slide cambiate). Compatibile con LibreOffice non disponibile,
+    # purché sorgente.json abbia già le posizioni dei link.
     keep = old.get("immagini") or []
     reuse = (not args.forza and len(keep) == len(slides)
              and all((imgdir / n).is_file() for n in keep)
              and all(old.get(k) == v for k, v in meta.items() if k not in ("extra", "formato")))
-    if reuse:
+    changed, stale = 0, []
+    if reuse and "link" in old:
         names = keep
-        changed = 0
-        stale = []
+        links = [old["link"].get(str(i), []) for i in range(1, len(names) + 1)]
         print(f"lezione {args.lezione}: immagini invariate, aggiorno solo le slide scritte a mano")
     else:
         WORK.mkdir(exist_ok=True)
         with tempfile.TemporaryDirectory(dir=WORK) as t:
             tmp = Path(t)
             pdf = pdf_in or pptx_to_pdf(pptx, tmp)
-            pngs = pdf_to_pngs(pdf, tmp)
-            if len(pngs) != len(slides):
-                sys.exit(f"{pptx.name}: {len(slides)} slide visibili nel pptx ma {len(pngs)} pagine nel PDF. "
+            links = pdf_links(pdf)
+            if len(links) != len(slides):
+                sys.exit(f"{pptx.name}: {len(slides)} slide visibili nel pptx ma {len(links)} pagine nel PDF. "
                          "Se il PDF viene da PowerPoint, riesportalo dal pptx attuale.")
-            names = []
-            for i, png in enumerate(pngs, 1):
-                data = to_webp(png)
-                name = f"{i:02d}-{hashlib.sha256(data).hexdigest()[:10]}.webp"
-                if not (imgdir / name).exists():
-                    (imgdir / name).write_bytes(data)
-                names.append(name)
-        stale = [p for p in imgdir.iterdir() if p.name not in names]
-        for p in stale:
-            p.unlink()
-        changed = sum(1 for n in names if n not in keep)
+            if reuse:
+                # pptx invariato, mancavano solo i link: le immagini restano quelle di prima
+                names = keep
+                print(f"lezione {args.lezione}: immagini invariate, aggiungo i link dal PDF")
+            else:
+                names = []
+                for i, png in enumerate(pdf_to_pngs(pdf, tmp), 1):
+                    data = to_webp(png)
+                    name = f"{i:02d}-{hashlib.sha256(data).hexdigest()[:10]}.webp"
+                    if not (imgdir / name).exists():
+                        (imgdir / name).write_bytes(data)
+                    names.append(name)
+                stale = [p for p in imgdir.iterdir() if p.name not in names]
+                for p in stale:
+                    p.unlink()
+                changed = sum(1 for n in names if n not in keep)
 
     # Le slide immagine del pptx, con i frammenti HTML inseriti dopo quelle indicate.
     extra_by_after = {}
     for e in extra:
         extra_by_after.setdefault(e["after"], []).append(e)
     chunks = []
-    for i, (name, slide) in enumerate(zip(names, slides), 1):
-        chunks.append(section(name, slide))
+    for i, (name, slide, slide_links) in enumerate(zip(names, slides, links), 1):
+        chunks.append(section(name, slide, slide_links))
         chunks += [e["html"] for e in extra_by_after.get(i, [])]
     sections = "\n".join(chunks)
     scripts = ", ".join(f'"extra/{html.escape(f)}"' for e in extra for f in e["js"])
@@ -333,11 +396,14 @@ def build(args) -> None:
     (out / "index.html").write_text(page)
 
     meta.update({"titolo": title, "argomento": topic(title), "data": date,
-                 "slide": len(names) + len(extra), "immagini": names})
+                 "slide": len(names) + len(extra), "immagini": names,
+                 "link": {str(i): ls for i, ls in enumerate(links, 1) if ls}})
     meta_path.write_text(json.dumps(meta, ensure_ascii=False, indent=2) + "\n")
+    n_links = sum(len(ls) for ls in links)
     print(f"lezione {args.lezione}: {len(names)} slide"
           f"{f' + {len(extra)} scritte a mano' if extra else ''} "
-          f"({changed} nuove o cambiate, {len(stale)} immagini tolte), motore: {meta['motore']}")
+          f"({changed} nuove o cambiate, {len(stale)} immagini tolte, "
+          f"{n_links} aree con link), motore: {meta['motore']}")
 
 
 # ── home page ───────────────────────────────────────────────────────────────
