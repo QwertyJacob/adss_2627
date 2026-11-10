@@ -20,7 +20,9 @@ Qualche rara slide è invece **scritta a mano in HTML + JavaScript** (reveal.js 
              "css": ["finestra-mobile.css"], "js": ["finestra-mobile.js"]}]}
 ```
 
-`after` è il numero della slide del pptx dopo cui inserire il frammento (slide visibili, contate da 1). Lo script legge il frammento, aggiunge CSS e JS al mazzo e carica KaTeX e GSAP solo per i mazzi che hanno slide scritte a mano; il JS può usare `PSI.scene` come nel corso PSI. Il mazzo si rigenera anche quando cambia uno di questi file, senza ridisegnare le immagini del pptx.
+`after` è il numero della slide del pptx dopo cui inserire il frammento (slide visibili, contate da 1). Lo script legge il frammento, aggiunge CSS e JS al mazzo e carica KaTeX, GSAP e QRious solo per i mazzi che hanno slide scritte a mano; il JS può usare `PSI.scene` come nel corso PSI. Il mazzo si rigenera anche quando cambia uno di questi file, senza ridisegnare le immagini del pptx.
+
+Con lo stesso meccanismo ci sono i **sondaggi dal vivo** (per esempio nella lezione 6): lo studente inquadra un QR, vota dal telefono in forma anonima e il docente mostra la distribuzione con **V**. La pagina di voto è `docs/vota/`, la configurazione `docs/assets/sondaggi.js`, il motore `docs/assets/slides/sondaggio.js`; i testi delle domande e delle opzioni stanno nella slide scritta a mano.
 
 ## Struttura
 
@@ -31,15 +33,19 @@ docs/settimana_NN/slides/        un mazzo per lezione, generato: non modificarlo
   img/NN-<hash>.webp             una immagine per slide (2560x1440)
   sorgente.json                  da quale pptx viene il mazzo, e dove sono i link
   extra/                         (facoltativo) slide scritte a mano, vedi sopra
-docs/assets/slides/
-  deck.js                        avvio comune: reveal.js, supabase-js, laser, panoramica
-  lavagna.js, lavagna.css        lavagna e sincronizzazione (copia da PSI-VA-2627)
-  immagini.css                   impaginazione delle slide immagine
-  scene.js, scenes.css           motore delle scene animate (copia da PSI-VA-2627)
+docs/assets/
+  sondaggi.js                    configurazione dei sondaggi (Supabase, pagina vota/)
+  slides/
+    deck.js                      avvio comune: reveal.js, supabase-js, laser, panoramica
+    lavagna.js, lavagna.css      lavagna e sincronizzazione (copia da PSI-VA-2627)
+    immagini.css                 impaginazione delle slide immagine
+    scene.js, scenes.css         motore delle scene animate (copia da PSI-VA-2627)
+    sondaggio.js                 motore dei sondaggi dal vivo
+docs/vota/index.html             pagina di voto aperta dal QR
 scripts/
   pptx_to_deck.py                pptx -> mazzo di immagini (e slide scritte a mano)
   test_lavagna.mjs               test della lavagna nel browser (Playwright)
-  fetch_slides_vendor.sh         copia locale di reveal.js, supabase-js, KaTeX e GSAP
+  fetch_slides_vendor.sh         copia locale di reveal.js, supabase-js, KaTeX, GSAP e QRious
 mkdocs.yml                       configurazione del sito (MkDocs Material)
 ```
 
@@ -55,7 +61,7 @@ Lo script disegna le slide con LibreOffice e `pdftoppm` (pacchetto poppler-utils
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r requirements-docs.txt
-npm run vendor                                   # reveal.js, supabase-js, KaTeX e GSAP in locale
+npm run vendor                                   # reveal.js, supabase-js, KaTeX, GSAP e QRious in locale
 .venv/bin/mkdocs serve -a 0.0.0.0:8001           # http://localhost:8001/adss_2627/
 npm install && npm run test:lavagna              # test della lavagna (serve la rete)
 ```
