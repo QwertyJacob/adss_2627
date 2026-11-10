@@ -1,0 +1,177 @@
+/*
+ * Slide scritte a mano: i sondaggi dal vivo (dopo le slide 6 e 9).
+ * Stile chiaro, come le slide immagine del pptx intorno: Arial, fondo bianco.
+ * Motore: assets/slides/sondaggio.js; configurazione: assets/sondaggi.js.
+ */
+
+/* Discendente, non figlia diretta: nella vista di stampa reveal sposta le
+   section dentro .pdf-page e le regole con > non si applicherebbero più. */
+.reveal .slides section.sondaggio-slide {
+  width: 1280px;
+  height: 720px;
+  padding: 0;
+  top: 0;
+  left: 0;
+  background: #fff;
+  color: #1f2937;
+  text-align: left;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.reveal .sondaggio-slide .sd-inner {
+  box-sizing: border-box;
+  width: 1280px;
+  height: 720px;
+  padding: 0 56px 0 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.reveal .sondaggio-slide .sd-badge {
+  display: inline-block;
+  margin: 0 0 10px;
+  padding: 5px 16px;
+  border-radius: 18px;
+  background: #fde8e6;
+  color: #b91c1c;
+  font: 700 18px/1.2 Arial, Helvetica, sans-serif;
+  letter-spacing: .4px;
+}
+
+.reveal .sondaggio-slide .sd-title {
+  margin: 0 0 6px;
+  color: #111827;
+  font: 700 42px/1.12 Arial, Helvetica, sans-serif;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.reveal .sondaggio-slide .sd-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 46px;
+  align-items: start;
+  margin-top: 10px;
+}
+
+.reveal .sondaggio-slide .sd-q {
+  margin: 0 0 26px;
+  color: #1f2937;
+  font: 26px/1.4 Arial, Helvetica, sans-serif;
+}
+
+.reveal .sondaggio-slide .sd-q b {
+  color: #b91c1c;
+}
+
+.reveal .sondaggio-slide .sd-opts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reveal .sondaggio-slide .sd-opts li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+  padding: 16px 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  color: #1f2937;
+  font: 700 22px/1.25 Arial, Helvetica, sans-serif;
+}
+
+.reveal .sondaggio-slide .sd-opts li span {
+  color: #94a3b8;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.reveal .sondaggio-slide .sondaggio-bar {
+  background: #dbeafe;
+  opacity: 0;
+  z-index: -1;
+}
+
+.reveal .sondaggio-slide .sondaggio-n {
+  color: #1f4e78;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.reveal .sondaggio-slide.svelato .sondaggio-bar,
+.reveal .sondaggio-slide.svelato .sondaggio-n {
+  opacity: 1;
+}
+
+.reveal .sondaggio-slide .sd-hint {
+  margin: 24px 0 0;
+  color: #6b7280;
+  font: 16px/1.35 Arial, Helvetica, sans-serif;
+}
+
+.reveal .sondaggio-slide .sd-hint b {
+  color: #b91c1c;
+}
+
+.reveal .sondaggio-slide .sd-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reveal .sondaggio-slide .sondaggio-qr {
+  display: block;
+  width: 320px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 18px;
+  line-height: 0;
+  box-shadow: 0 10px 28px #00000014;
+}
+
+.reveal .sondaggio-slide .sondaggio-qr canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  image-rendering: pixelated;
+}
+
+.reveal .sondaggio-slide .sondaggio-qr-fallback {
+  display: block;
+  padding: 20px 10px;
+  color: #1f4e78;
+  font: 700 18px/1.3 Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+.reveal .sondaggio-slide .sondaggio-count {
+  margin: 16px 0 0;
+  color: #111827;
+  font: 800 24px/1.2 Arial, Helvetica, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+.reveal .sondaggio-slide .sondaggio-count.off {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.reveal .sondaggio-slide .sd-reveal {
+  margin: 18px 0 0;
+  color: #6b7280;
+  font: 16px/1.3 Arial, Helvetica, sans-serif;
+}
+
+.reveal .sondaggio-slide .sd-reveal b {
+  color: #b91c1c;
+}

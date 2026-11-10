@@ -15,15 +15,16 @@
  *            <script>ADSSDeck.start();</script>
  *
  * I mazzi con qualche slide scritta a mano (cartella extra/, vedi
- * scripts/pptx_to_deck.py) caricano in più KaTeX e GSAP e chiamano
- * ADSSDeck.start({ extra: true }); così possono usare scene.js e le formule.
+ * scripts/pptx_to_deck.py) caricano in più KaTeX, GSAP e QRious e chiamano
+ * ADSSDeck.start({ extra: true }); così possono usare scene.js, le formule e
+ * i sondaggi dal vivo (assets/slides/sondaggio.js).
  *
- * Carica reveal.js, supabase-js (e, se servono, KaTeX e GSAP) dalla copia
- * locale in assets/vendor (npm run vendor, esclusa da git), così le slide
- * funzionano anche in locale senza rete; dove la copia manca, come sul sito
- * pubblicato, ogni file ripiega sulla stessa versione dal CDN. Le versioni
- * stanno solo qui: lo script scripts/fetch_slides_vendor.sh le legge da
- * questo file.
+ * Carica reveal.js, supabase-js (e, se servono, KaTeX, GSAP e QRious) dalla
+ * copia locale in assets/vendor (npm run vendor, esclusa da git), così le
+ * slide funzionano anche in locale senza rete; dove la copia manca, come sul
+ * sito pubblicato, ogni file ripiega sulla stessa versione dal CDN. Le
+ * versioni stanno solo qui: lo script scripts/fetch_slides_vendor.sh le legge
+ * da questo file.
  */
 (function () {
   'use strict';
@@ -46,7 +47,8 @@
   var EXTRA_JS = [
     'katex@0.18.9/dist/katex.min.js',
     'katex@0.18.9/dist/contrib/auto-render.min.js',
-    'gsap@3.15.0/dist/gsap.min.js'
+    'gsap@3.15.0/dist/gsap.min.js',
+    'qrious@4.0.2/dist/qrious.min.js' // QR dei sondaggi
   ];
 
   // Canali Realtime e PIN propri di ADSS: il progetto Supabase è lo stesso di PSI.
@@ -149,6 +151,11 @@
       if (extra) {
         chain = chain.then(function () {
           return script(ASSETS + 'slides/scene.js').catch(function () {});
+        }).then(function () {
+          // Sondaggi dal vivo: configurazione + motore (si aggancia da solo a reveal).
+          return script(ASSETS + 'sondaggi.js').catch(function () {});
+        }).then(function () {
+          return script(ASSETS + 'slides/sondaggio.js').catch(function () {});
         }).then(function () {
           return extraScripts.reduce(function (next, src) {
             return next.then(function () { return script(src); });

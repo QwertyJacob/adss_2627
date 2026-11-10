@@ -1,10 +1,19 @@
 {
   "insert": [
     {
+      "after": 9,
+      "html": "sondaggio-1.html",
+      "css": ["sondaggi.css"]
+    },
+    {
       "after": 16,
       "html": "finestra-mobile.html",
       "css": ["finestra-mobile.css"],
       "js": ["finestra-mobile.js"]
+    },
+    {
+      "after": 18,
+      "html": "sondaggio-2.html"
     }
   ]
 }

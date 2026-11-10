@@ -5,11 +5,11 @@
   "pdf_sha256": null,
   "motore": "LibreOffice",
   "formato": 3,
-  "extra": "e59e3c61e11145df9a48281b228041e735bb54e84fb75c2f6c8f8aeda348ce1b",
+  "extra": "f0b365fa39d88997a0043579a7c6d97e2a025a9230f68330b50a2ad68b38e865",
   "titolo": "Lezione 6 · Serie storiche: generarle e descriverle",
   "argomento": "Serie storiche: generarle e descriverle",
   "data": "2026-11-10",
-  "slide": 26,
+  "slide": 28,
   "immagini": [
     "01-d08466b4a7.webp",
     "02-af341dc3fa.webp",

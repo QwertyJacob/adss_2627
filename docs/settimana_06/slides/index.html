@@ -7,6 +7,7 @@
   <link rel="icon" href="data:,">
   <!-- Generato da scripts/pptx_to_deck.py a partire da L06_slide.pptx: non modificare a mano. -->
   <script src="../../assets/slides/deck.js"></script>
+  <link rel="stylesheet" href="extra/sondaggi.css">
   <link rel="stylesheet" href="extra/finestra-mobile.css">
 </head>
 <body>
@@ -27,6 +28,31 @@
     <section class="slide-img"><img src="img/08-3a8627688f.webp" width="1280" height="720" alt="Simulare serie storiche · Una serie storica può essere costruita con dati “sintetici”, in modo deterministico (p.es. a(t) = k1 sin(k2 t) + k3 ) casuale (p.es. a(t) = k1 casuale() + k2 ) parzialmente casuale (p.es. a(t) = k1 sin(k2 t) + k3 casuale() + k4 ) · Una tecnica semplice ma interessante per costruire serie storiche in modo parzialmente casuale: cammino casuale (in inglese: random walk)"></section>
     <section class="slide-img"><img src="img/09-0dc6a4fa3b.webp" width="1280" height="720" alt="Cammini casuali (random walks) · Non è altro che la versione unidimensionale del moto browniano (it.wikipedia.org/wiki/Moto_browniano) · Una definizione con una struttura di questo genere si chiama ricorsiva: · base della ricorsione · a(0) = k1 a(i) = a(i – 1) + k2 casuale() + k3 · passo della ricorsione">
       <a class="slide-link" href="https://it.wikipedia.org/wiki/Moto_browniano" target="_blank" rel="noopener" style="left:65.7px;top:143.3px;width:493.4px;height:28.3px" aria-label="https://it.wikipedia.org/wiki/Moto_browniano"></a></section>
+<section id="sondaggio-cammino" class="sondaggio sondaggio-slide" data-poll="adss-s06-1b">
+      <div class="sd-inner">
+        <div class="sd-head">
+          <p class="sd-badge">Sondaggio · 30 secondi</p>
+          <h2 class="sd-title">Hai capito il cammino casuale?</h2>
+        </div>
+        <div class="sd-grid">
+          <div class="sd-main">
+            <p class="sd-q">Un cammino casuale parte da <b>100</b>.<br>A ogni passo aggiunge un numero a caso tra <b>−1</b> e <b>+1</b>.<br>Dopo 100 passi, dove te lo aspetti?</p>
+            <ol class="sondaggio-opts sd-opts">
+              <li><span>1</span>Intorno a 0</li>
+              <li><span>2</span>Intorno a 100</li>
+              <li><span>3</span>Intorno a 200</li>
+              <li><span>4</span>Sempre esattamente 100</li>
+            </ol>
+            <p class="sd-hint">Inquadra il QR · voto anonimo, uno per telefono · risultati con <b>V</b></p>
+          </div>
+          <div class="sd-side">
+            <div class="sondaggio-join"></div>
+            <p class="sd-reveal">Premi <b>V</b> per i risultati</p>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">Verifica di comprensione, 30 secondi; poi V. Risposta 2: il passo medio è 0, quindi il cammino vaga intorno al valore iniziale (100), con variabilità che cresce come √n. Chi sceglie 0 confonde il punto di partenza con l'origine; chi sceglie 200 pensa a un passo medio +1; chi sceglie «esattamente 100» confonde la previsione con la certezza. Se molti sbagliano, riprendi a(i) = a(i−1) + passo e il ruolo del passo medio prima del laboratorio.</aside>
+    </section>
     <section class="slide-img"><img src="img/10-cc1e3064c8.webp" width="1280" height="720" alt="La statistica descrittiva fornisce strumenti per produrre sintesi significative di dati, anche di serie storiche · Dataset · Popolazione · sintesi · sintesi · di dati · sintesi · Distribuzioni · Campioni · numerici · ordinali · categorici · sintesi · sintesi · Serie storiche · Statistiche · di posizione · di dispersione · altre"></section>
     <section class="slide-img"><img src="img/11-d1885a623f.webp" width="1280" height="720" alt="In laboratorio: il cammino casuale · LABORATORIO · 1. Foglio nuovo. In A1 scrivi t, in B1 scrivi x 2. Parametri: H2 «x iniziale», H3 «passo minimo», H4 «ampiezza del passo»; in I2, I3, I4 i valori 0, −1, 2 3. A2: 0 A3: =A2+1 e ricopia fino ad A101 4. B2: =$I$2 B3: =B2+$I$3+$I$4*CASUALE() e ricopia fino a B101 5. Seleziona A1:B101 › Inserisci › Dispersione con linee rette 6. Premi F9 più volte. Poi metti −0,9 in I3: che cosa cambia? E con −1,1? Domanda: il passo è un numero a caso tra I3 e I3+I4. Quanto vale in media?"></section>
     <section class="slide-img"><img src="img/12-d1049c08dc.webp" width="1280" height="720" alt="Mettiti alla prova! Il magazzino · CHALLENGE · Un negozio parte con 30 pezzi in magazzino. Ogni giorno arrivano dal fornitore tra 0 e 10 pezzi e i clienti ne comprano tra 0 e 10 (numeri interi a caso). 1. Simula la scorta per 60 giorni e fanne il grafico 2. Qual è la scorta minima? E la massima? 3. In quanti giorni la scorta è sotto i 10 pezzi? 4. Premi F9 dieci volte: quante volte la scorta va sotto zero? Che cosa vuol dire per il negozio? 5. Se i clienti comprano tra 0 e 11 pezzi al giorno, che cosa cambia? Perché? Ti servono: CASUALE.TRA(0;10), MIN, MAX, CONTA.SE"></section>
@@ -85,6 +111,31 @@
     </section>
     <section class="slide-img"><img src="img/17-12b7a04359.webp" width="1280" height="720" alt="La statistica descrittiva fornisce strumenti per produrre sintesi significative di dati, anche di serie storiche · Dataset · Popolazione · sintesi · sintesi · di dati · sintesi · Distribuzioni · Campioni · numerici · sintesi · sintesi · ordinali · categorici · Serie storiche · Statistiche · di posizione · di dispersione · sintesi · altre (di simmetria, relazione, …) · Statistiche · campionarie · progressive · mobili"></section>
     <section class="slide-img"><img src="img/18-4e7b83033c.webp" width="1280" height="720" alt="Campionaria, progressiva, mobile: è tutta questione di $ · Formula scritta nella riga 6 e ricopiata in basso: =MEDIA($B$2:$B$101) media campionaria: sempre lo stesso intervallo, un solo numero =MEDIA($B$2:B6) media progressiva: il primo estremo è fermo, il secondo scende → la finestra si allunga: tutti i valori fino a oggi =MEDIA(B2:B6) media mobile: scendono entrambi gli estremi → la finestra scorre: solo gli ultimi 5 valori"></section>
+<section id="sondaggio-progressiva-mobile" class="sondaggio sondaggio-slide" data-poll="adss-s06-2b">
+      <div class="sd-inner">
+        <div class="sd-head">
+          <p class="sd-badge">Sondaggio · 30 secondi</p>
+          <h2 class="sd-title">Progressiva o mobile?</h2>
+        </div>
+        <div class="sd-grid">
+          <div class="sd-main">
+            <p class="sd-q">Che cosa distingue la <b>media progressiva</b> dalla <b>media mobile</b>?</p>
+            <ol class="sondaggio-opts sd-opts">
+              <li><span>1</span>Progressiva: tutti i valori; mobile: ultimi k</li>
+              <li><span>2</span>Progressiva: ultimi k; mobile: tutti i valori</li>
+              <li><span>3</span>Progressiva: un numero; mobile: una serie</li>
+              <li><span>4</span>Sono la stessa cosa</li>
+            </ol>
+            <p class="sd-hint">Inquadra il QR · voto anonimo, uno per telefono · risultati con <b>V</b></p>
+          </div>
+          <div class="sd-side">
+            <div class="sondaggio-join"></div>
+            <p class="sd-reveal">Premi <b>V</b> per i risultati</p>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">Verifica di comprensione, 30 secondi; poi V. Risposta 1: la progressiva allunga la finestra (tutti i valori fino a oggi), la mobile la fa scorrere (solo gli ultimi k). Chi sceglie 3 confonde la media progressiva con la media campionaria (un solo numero); chi sceglie 4 non ha colto la differenza. Se molti sbagliano, torna su =MEDIA($B$2:B6) e =MEDIA(B2:B6): il primo estremo fermo o mobile è tutta la differenza.</aside>
+    </section>
     <section class="slide-img"><img src="img/19-6e7fa419b5.webp" width="1280" height="720" alt="Ancora sulla media mobile · Per esempio, se j = 6 e k = 4: · e calcola il prodotto scalare dei due vettori nella finestra · ¼ ¼ ¼ ¼ · y1 y2 y3 y4 y5 y6 y7 ... · Implementiamo il calcolo della media mobile in questo modo"></section>
     <section class="slide-img"><img src="img/20-9211bb7757.webp" width="1280" height="720" alt="Una generalizzazione della media mobile · Mentre in una media mobile, tutti gli elementi nella finestra hanno lo stesso peso... · ¼ ¼ ¼ ¼ · y1 y2 y3 y4 y5 y6 y7 ... · … potremmo decidere di pesare di più gli elementi più vicini al presente · Per esempio: · 0,1 0,2 0,3 0,4 · y1 y2 y3 y4 y5 y6 y7 ... · Questa statistica generalizza la media mobile come una “media mobile pesata” · Proviamo la media mobile pesata di una funzione a gradino, al variare del vettore dei pesi"></section>
     <section class="slide-img"><img src="img/21-3e8de548e5.webp" width="1280" height="720" alt="Media mobile (e media mobile pesata) come modelli statistici · Di una certa serie Y e di un certo giorno j ci sono diverse medie mobili · in funzione del numero k di elementi (l’“ampiezza della finestra”) su cui si calcola la media · Scegliendo un certo k diamo perciò un’interpretazione della serie Y · Chiamiamo modello statistico un’interpretazione di questo genere">
