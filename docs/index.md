@@ -11,7 +11,7 @@ Avvisi, file Excel e dati per le esercitazioni sono sull'[Aula Virtuale del cors
 | Lezione | Data | Argomento | Slide |
 |:-:|---|---|---|
 | 6 | mar 10/11/2026 | Serie storiche: generarle e descriverle | [Apri le slide](settimana_06/slides/index.html) (28) |
-| 7 | mar 17/11/2026 | Un modello per le serie storiche: la retta di regressione | [Apri le slide](settimana_07/slides/index.html) (24) |
+| 7 | mar 17/11/2026 | Un modello per le serie storiche: la retta di regressione | [Apri le slide](settimana_07/slides/index.html) (35) |
 | 8 | mar 24/11/2026 | Oltre la retta: logaritmo e analisi dei residui | [Apri le slide](settimana_08/slides/index.html) (23) |
 | 9 | mar 01/12/2026 | Controllo statistico di processo | [Apri le slide](settimana_09/slides/index.html) (23) |
 | 10 | mar 15/12/2026 | Medie di medie e teorema del limite centrale | [Apri le slide](settimana_10/slides/index.html) (22) |

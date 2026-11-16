@@ -1,0 +1,34 @@
+    <section id="pp-quadrati" class="pp-slide">
+      <div class="pp-inner">
+        <div class="pp-head">
+          <p class="pp-badge">Minimi quadrati senza derivate · 5/10</p>
+          <h2 class="pp-title">La somma dei quadrati</h2>
+        </div>
+        <div class="pp-eq">
+          <div class="pp-v">$f=\sum_i r_i^2=\sum_i\,(u_i-\beta)^2$</div>
+        </div>
+        <div class="pp-body">
+          <svg class="pp-svg" width="800" height="540" viewBox="0 0 800 540" role="img"
+               aria-label="Su ogni residuo un quadrato: la loro area totale è f. Spostando la retta orizzontale f cambia, ed è minima nella media degli u."></svg>
+          <div class="pp-side" data-prevent-swipe>
+            <div class="pp-say pp-short">
+              <p class="pp-v">Per misurare quanto la retta è lontana dai punti: i quadrati dei residui, sommati.</p>
+              <p class="pp-v">Ogni quadrato ha per lato un residuo. $f$ è l'area totale.</p>
+              <p class="pp-v">Abbassiamo la retta: i quadrati grandi si rimpiccioliscono e $f$ scende.</p>
+              <p class="pp-v">Più in basso $f$ risale: alla stessa distanza dall'altra parte vale come prima.</p>
+              <p class="pp-v">Il minimo è nella media degli $u_i$: $\beta=m_U$.</p>
+            </div>
+            <div class="pp-big">
+              <span class="pp-big-lab">somma dei quadrati</span>
+              <b class="pp-big-val pp-f">0</b>
+            </div>
+            <label class="pp-slider">
+              <span class="pp-slider-lab">$\beta$</span>
+              <input type="range" aria-label="Altezza beta della retta orizzontale">
+              <b class="pp-b">0</b>
+            </label>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">I quadrati sono veri quadrati: il lato è il residuo, e la loro area totale è f. Quattro avanzamenti: i quadrati; beta scende alla media e f diminuisce; beta scende ancora e f risale (alla stessa distanza dalla media f torna uguale); beta torna alla media, la linea verde. Il cursore resta alla classe: chi trova il beta con f più piccola?</aside>
+    </section>

@@ -1,0 +1,55 @@
+    <section id="senza-derivate" class="qr-slide">
+      <div class="qr-inner">
+        <div class="qr-main">
+          <p class="qr-badge">Minimi quadrati · il minimo senza derivate</p>
+          <h2 class="qr-title">Un quadrato più un resto</h2>
+          <p class="qr-lead">Dove è più piccola questa funzione? Guardiamo i due pezzi, uno per volta.</p>
+          <div class="qr-formula" aria-label="h di c uguale c meno 3 al quadrato, più 5">
+            <span class="qr-f">$h(c)=$</span>
+            <span class="qr-part qr-sq">$(c-3)^2$<span class="qr-cap">mai negativo</span></span>
+            <span class="qr-f">$+$</span>
+            <span class="qr-part qr-rest">$5$<span class="qr-cap">non dipende da $c$</span></span>
+          </div>
+          <svg class="qr-svg" width="752" height="420" viewBox="0 0 752 420" role="img"
+               aria-label="Grafico di h(c) = (c − 3)² + 5 per c da 0 a 6. Una fascia verde alta 5 copre tutto l'asse: è il resto, uguale per ogni c. Sopra la fascia una barra rossa alta (c − 3)²: cambia con c ma non scende mai sotto zero, e sparisce solo per c = 3. Il minimo è 5, in c = 3."></svg>
+        </div>
+
+        <div class="qr-panel" data-prevent-swipe>
+          <label class="qr-slider">
+            <span class="qr-slider-lab">$c$</span>
+            <input type="range" min="0" max="6" step="0.1" value="0" aria-label="Valore di c, da 0 a 6">
+            <b class="qr-c">0,0</b>
+          </label>
+
+          <div class="qr-calc">
+            <div class="qr-row qr-row-sq">
+              <span class="qr-lab">il quadrato $(c-3)^2$</span>
+              <b class="qr-v-sq">9,00</b>
+            </div>
+            <div class="qr-row qr-row-rest">
+              <span class="qr-lab">il resto</span>
+              <b class="qr-v-rest">5</b>
+            </div>
+            <div class="qr-row qr-row-h">
+              <span class="qr-lab">$h(c)$</span>
+              <b class="qr-v-h">14,00</b>
+            </div>
+          </div>
+
+          <ul class="qr-notes">
+            <li>$5$ non dipende da $c$: è un pavimento, uguale ovunque.</li>
+            <li>$(c-3)^2$ è un quadrato: si appoggia sul pavimento e non va mai sotto.</li>
+            <li>Il quadrato vale zero solo per $c=3$.</li>
+          </ul>
+
+          <div class="qr-end">
+            <p>Quindi $h(c)$ vale sempre almeno $5$, e vale esattamente $5$ per $c=3$.</p>
+            <p class="qr-end-big">Il minimo è $5$, in $c=3$. Nessuna derivata.</p>
+            <p class="qr-end-small">Con $f(\alpha,\beta)$ si usa la stessa idea, due volte: un quadrato che contiene il parametro, più un resto che non lo contiene.</p>
+          </div>
+
+          <p class="qr-hint">Trascina $c$: la barra rossa cambia, quella verde no.</p>
+        </div>
+      </div>
+      <aside class="notes">Slide nuova (HTML + JavaScript), subito dopo la slide delle derivate parziali. Il messaggio è uno solo: se riesco a scrivere una funzione come «un quadrato che contiene il parametro, più un resto che non lo contiene», il minimo si legge senza derivate. Quattro avanzamenti. 1) Il resto: compare la fascia verde alta 5, uguale per ogni c. 2) Il quadrato: la barra rossa si appoggia sulla fascia e c scorre da 0 a 6; la barra cambia altezza ma non scende mai sotto il pavimento, e la punta disegna la parabola. 3) c torna a 3: la barra rossa sparisce, ed è l'unico punto in cui h tocca il pavimento. 4) Conclusione: h vale sempre almeno 5 e vale 5 in c = 3, quindi il minimo è 5 in c = 3. Poi dai il cursore alla classe. Domande di controllo: per quali c si ha h(c) = 6? (c = 2 e c = 4.) Dove sta il minimo di (c − 7) al quadrato + 2, e quanto vale? (in c = 7, vale 2.) Collegamento: con la somma dei quadrati dei residui si fa la stessa cosa due volte, prima per l'intercetta e poi per la pendenza (note per il docente, sezioni 2.3–5). Primo uso: la media è il numero che rende minima la somma dei quadrati degli scarti.</aside>
+    </section>

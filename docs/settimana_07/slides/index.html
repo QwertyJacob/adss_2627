@@ -7,7 +7,8 @@
   <link rel="icon" href="data:,">
   <!-- Generato da scripts/pptx_to_deck.py a partire da L07_slide.pptx: non modificare a mano. -->
   <script src="../../assets/slides/deck.js"></script>
-
+  <link rel="stylesheet" href="extra/senza-derivate.css">
+  <link rel="stylesheet" href="extra/passo-passo.css">
 </head>
 <body>
   <div class="reveal"><div class="slides">
@@ -31,6 +32,343 @@
     <section class="slide-img"><img src="img/09-a5c21039cc.webp" width="1280" height="720" alt="Il criterio di Gauss: minimi quadrati (least squares) · Se (serie = retta + residui), allora (serie – retta = residui), cioè · L’idea è semplice: la retta migliore è quella “più vicina” alla serie, e dunque quella che minimizza i residui · Per le solite ragioni, in effetti minimizziamo la somma dei quadrati dei residui, cioè cerchiamo α e β tali che: sia minimo al variare di α e β · Proviamo “a mano”...">
       <a class="slide-link" href="https://docs.google.com/spreadsheets/d/1wDGPAmLwfL0hse2yXhFQWJoZV1L9SCmvyHXFUdAzXWs/edit#gid=853002892&amp;range=E5" target="_blank" rel="noopener" style="left:815.1px;top:432.8px;width:447.2px;height:276px" aria-label="https://docs.google.com/spreadsheets/d/1wDGPAmLwfL0hse2yXhFQWJoZV1L9SCmvyHXFUdAzXWs/edit#gid=853002892&amp;range=E5"></a></section>
     <section class="slide-img"><img src="img/10-0fe263e9ea.webp" width="1280" height="720" alt="Il criterio di Gauss: una nota matematica · Stiamo trattando come una funzione f di α e β e stiamo cercando il suo minimo al variare di α e β cioè · Per trovare il minimo di una funzione ci si comporta come al solito: si cerca lo / uno zero della sua derivata prima: · α = … β = ... · Buone notizie: le due formule sono già implementate in funzioni dei fogli di calcolo: pendenza() (in inglese: slope()) e intercetta() (in inglese: intercept())"></section>
+<section id="senza-derivate" class="qr-slide">
+      <div class="qr-inner">
+        <div class="qr-main">
+          <p class="qr-badge">Minimi quadrati · il minimo senza derivate</p>
+          <h2 class="qr-title">Un quadrato più un resto</h2>
+          <p class="qr-lead">Dove è più piccola questa funzione? Guardiamo i due pezzi, uno per volta.</p>
+          <div class="qr-formula" aria-label="h di c uguale c meno 3 al quadrato, più 5">
+            <span class="qr-f">$h(c)=$</span>
+            <span class="qr-part qr-sq">$(c-3)^2$<span class="qr-cap">mai negativo</span></span>
+            <span class="qr-f">$+$</span>
+            <span class="qr-part qr-rest">$5$<span class="qr-cap">non dipende da $c$</span></span>
+          </div>
+          <svg class="qr-svg" width="752" height="420" viewBox="0 0 752 420" role="img"
+               aria-label="Grafico di h(c) = (c − 3)² + 5 per c da 0 a 6. Una fascia verde alta 5 copre tutto l'asse: è il resto, uguale per ogni c. Sopra la fascia una barra rossa alta (c − 3)²: cambia con c ma non scende mai sotto zero, e sparisce solo per c = 3. Il minimo è 5, in c = 3."></svg>
+        </div>
+
+        <div class="qr-panel" data-prevent-swipe>
+          <label class="qr-slider">
+            <span class="qr-slider-lab">$c$</span>
+            <input type="range" min="0" max="6" step="0.1" value="0" aria-label="Valore di c, da 0 a 6">
+            <b class="qr-c">0,0</b>
+          </label>
+
+          <div class="qr-calc">
+            <div class="qr-row qr-row-sq">
+              <span class="qr-lab">il quadrato $(c-3)^2$</span>
+              <b class="qr-v-sq">9,00</b>
+            </div>
+            <div class="qr-row qr-row-rest">
+              <span class="qr-lab">il resto</span>
+              <b class="qr-v-rest">5</b>
+            </div>
+            <div class="qr-row qr-row-h">
+              <span class="qr-lab">$h(c)$</span>
+              <b class="qr-v-h">14,00</b>
+            </div>
+          </div>
+
+          <ul class="qr-notes">
+            <li>$5$ non dipende da $c$: è un pavimento, uguale ovunque.</li>
+            <li>$(c-3)^2$ è un quadrato: si appoggia sul pavimento e non va mai sotto.</li>
+            <li>Il quadrato vale zero solo per $c=3$.</li>
+          </ul>
+
+          <div class="qr-end">
+            <p>Quindi $h(c)$ vale sempre almeno $5$, e vale esattamente $5$ per $c=3$.</p>
+            <p class="qr-end-big">Il minimo è $5$, in $c=3$. Nessuna derivata.</p>
+            <p class="qr-end-small">Con $f(\alpha,\beta)$ si usa la stessa idea, due volte: un quadrato che contiene il parametro, più un resto che non lo contiene.</p>
+          </div>
+
+          <p class="qr-hint">Trascina $c$: la barra rossa cambia, quella verde no.</p>
+        </div>
+      </div>
+      <aside class="notes">Slide nuova (HTML + JavaScript), subito dopo la slide delle derivate parziali. Il messaggio è uno solo: se riesco a scrivere una funzione come «un quadrato che contiene il parametro, più un resto che non lo contiene», il minimo si legge senza derivate. Quattro avanzamenti. 1) Il resto: compare la fascia verde alta 5, uguale per ogni c. 2) Il quadrato: la barra rossa si appoggia sulla fascia e c scorre da 0 a 6; la barra cambia altezza ma non scende mai sotto il pavimento, e la punta disegna la parabola. 3) c torna a 3: la barra rossa sparisce, ed è l'unico punto in cui h tocca il pavimento. 4) Conclusione: h vale sempre almeno 5 e vale 5 in c = 3, quindi il minimo è 5 in c = 3. Poi dai il cursore alla classe. Domande di controllo: per quali c si ha h(c) = 6? (c = 2 e c = 4.) Dove sta il minimo di (c − 7) al quadrato + 2, e quanto vale? (in c = 7, vale 2.) Collegamento: con la somma dei quadrati dei residui si fa la stessa cosa due volte, prima per l'intercetta e poi per la pendenza (note per il docente, sezioni 2.3–5). Primo uso: la media è il numero che rende minima la somma dei quadrati degli scarti.</aside>
+    </section>
+<section id="pp-fissa" class="pp-slide">
+      <div class="pp-inner">
+        <div class="pp-head">
+          <p class="pp-badge">Minimi quadrati senza derivate · 1/10</p>
+          <h2 class="pp-title">Teniamo ferma la pendenza</h2>
+        </div>
+        <div class="pp-eq">
+          <div class="pp-v">$\hat y=\alpha\,x+\beta$</div>
+          <div class="pp-v" data-tex="fix"></div>
+          <div class="pp-v" data-tex="fixq"></div>
+        </div>
+        <div class="pp-body">
+          <svg class="pp-svg" width="800" height="540" viewBox="0 0 800 540" role="img"
+               aria-label="Dieci punti e la retta y = alfa x con la pendenza fissata; poi le rette parallele, una per ogni beta."></svg>
+          <div class="pp-side" data-prevent-swipe>
+            <div class="pp-say">
+              <p class="pp-v">Dieci punti. Cerchiamo la retta più vicina: servono una pendenza $\alpha$ e un'intercetta $\beta$.</p>
+              <p class="pp-v">Un passo alla volta. Prima fissiamo la pendenza: per esempio $\alpha=$ <b data-n="alpha"></b>. La retta tratteggiata ha solo la pendenza: $y=\alpha\,x$.</p>
+              <p class="pp-v">Con la pendenza fissata restano tante rette parallele, una per ogni $\beta$. Quale scegliamo?</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">Prima slide della derivazione senza derivate: si regola un parametro alla volta. La pendenza è fissata a un valore qualsiasi: tutta la sequenza funziona per ogni alfa. Due avanzamenti: la retta y = alfa x, poi le parallele y = alfa x + beta. Domanda: che cosa cambia tra una parallela e l'altra? (Solo l'altezza, cioè beta.) I dati sono in cima a extra/passo-passo.js: si possono cambiare, tutto il resto si ricalcola.</aside>
+    </section>
+<section id="pp-resta" class="pp-slide">
+      <div class="pp-inner">
+        <div class="pp-head">
+          <p class="pp-badge">Minimi quadrati senza derivate · 2/10</p>
+          <h2 class="pp-title">Quello che resta, tolta la pendenza</h2>
+        </div>
+        <div class="pp-eq">
+          <div class="pp-v">$u_i=y_i-\alpha\,x_i$</div>
+          <div class="pp-v" data-tex="ufocus"></div>
+          <div class="pp-v" data-tex="ulist"></div>
+        </div>
+        <div class="pp-body">
+          <svg class="pp-svg" width="800" height="540" viewBox="0 0 800 540" role="img"
+               aria-label="Per un punto, poi per tutti, il segmento verticale tra la retta y = alfa x e il punto: è u = y meno alfa x."></svg>
+          <div class="pp-side" data-prevent-swipe>
+            <div class="pp-say">
+              <p class="pp-v">Per ogni punto: quanto della sua $y$ non è spiegato dalla pendenza?</p>
+              <p class="pp-v">Un punto alla volta. La sua $y$ è <b data-n="fy"></b>; la pendenza ne spiega $\alpha\,x=$ <b data-n="fax"></b>. Resta <b data-n="fu"></b>.</p>
+              <p class="pp-v">Lo stesso per tutti i punti. Chiamiamo $u_i$ quello che resta.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">Il segmento arancione è u = y − alfa x: la distanza in verticale tra il punto e la retta tratteggiata. Se il punto sta sotto la retta, u è negativo. Prima un punto solo, poi tutti.</aside>
+    </section>
+<section id="pp-togli" class="pp-slide">
+      <div class="pp-inner">
+        <div class="pp-head">
+          <p class="pp-badge">Minimi quadrati senza derivate · 3/10</p>
+          <h2 class="pp-title">Togliamo la pendenza</h2>
+        </div>
+        <div class="pp-eq">
+          <div class="pp-v">$u_i=y_i-\alpha\,x_i$</div>
+          <div class="pp-v" data-tex="ulist"></div>
+        </div>
+        <div class="pp-body">
+          <svg class="pp-svg" width="800" height="540" viewBox="0 0 800 540" role="img"
+               aria-label="Ogni punto scende della sua parte di pendenza: la retta tratteggiata diventa orizzontale e restano i numeri u."></svg>
+          <div class="pp-side" data-prevent-swipe>
+            <div class="pp-say">
+              <p class="pp-v">Ora togliamo a ogni punto la sua parte di pendenza, $\alpha\,x_i$.</p>
+              <p class="pp-v">I punti scendono: la retta tratteggiata diventa orizzontale. Ingrandiamo.</p>
+              <p class="pp-v">Restano gli $u_i$. La pendenza non c'è più: il problema è diventato più semplice.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">È un cambio di punto di vista: ogni punto scende di alfa x, quindi la retta y = alfa x diventa la retta y = 0. In verticale ora si leggono gli u. Due avanzamenti: la discesa (con lo zoom), poi restano solo i punti.</aside>
+    </section>
+<section id="pp-residuo" class="pp-slide">
+      <div class="pp-inner">
+        <div class="pp-head">
+          <p class="pp-badge">Minimi quadrati senza derivate · 4/10</p>
+          <h2 class="pp-title">Il residuo, visto da qui</h2>
+        </div>
+        <div class="pp-eq">
+          <div class="pp-v">$r_i=y_i-(\alpha\,x_i+\beta)$</div>
+          <div class="pp-v">$r_i=\textcolor{#b45309}{(y_i-\alpha\,x_i)}-\beta$</div>
+          <div class="pp-v">$r_i=\textcolor{#b45309}{u_i}-\beta$</div>
+        </div>
+        <div class="pp-body">
+          <svg class="pp-svg" width="800" height="540" viewBox="0 0 800 540" role="img"
+               aria-label="I numeri u e una retta orizzontale all'altezza beta, con i residui u meno beta."></svg>
+          <div class="pp-side" data-prevent-swipe>
+            <div class="pp-say">
+              <p class="pp-v">Il residuo di una retta: il punto meno la retta.</p>
+              <p class="pp-v">Spostiamo la parentesi: dentro c'è quello che resta, tolta la pendenza.</p>
+              <p class="pp-v">È $u_i$. Il residuo è la distanza di $u_i$ da una retta orizzontale, all'altezza $\beta$.</p>
+              <p class="pp-v">Scegliere la retta vuol dire scegliere l'altezza $\beta$ più vicina a tutti gli $u_i$.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">Tre righe di algebra, una per avanzamento: il residuo r = y − (alfa x + beta) diventa u − beta. Poi compare la retta orizzontale con i residui. Nell'ultimo avanzamento beta scende e risale: i residui cambiano tutti insieme.</aside>
+    </section>
+<section id="pp-quadrati" class="pp-slide">
+      <div class="pp-inner">
+        <div class="pp-head">
+          <p class="pp-badge">Minimi quadrati senza derivate · 5/10</p>
+          <h2 class="pp-title">La somma dei quadrati</h2>
+        </div>
+        <div class="pp-eq">
+          <div class="pp-v">$f=\sum_i r_i^2=\sum_i\,(u_i-\beta)^2$</div>
+        </div>
+        <div class="pp-body">
+          <svg class="pp-svg" width="800" height="540" viewBox="0 0 800 540" role="img"
+               aria-label="Su ogni residuo un quadrato: la loro area totale è f. Spostando la retta orizzontale f cambia, ed è minima nella media degli u."></svg>
+          <div class="pp-side" data-prevent-swipe>
+            <div class="pp-say pp-short">
+              <p class="pp-v">Per misurare quanto la retta è lontana dai punti: i quadrati dei residui, sommati.</p>
+              <p class="pp-v">Ogni quadrato ha per lato un residuo. $f$ è l'area totale.</p>
+              <p class="pp-v">Abbassiamo la retta: i quadrati grandi si rimpiccioliscono e $f$ scende.</p>
+              <p class="pp-v">Più in basso $f$ risale: alla stessa distanza dall'altra parte vale come prima.</p>
+              <p class="pp-v">Il minimo è nella media degli $u_i$: $\beta=m_U$.</p>
+            </div>
+            <div class="pp-big">
+              <span class="pp-big-lab">somma dei quadrati</span>
+              <b class="pp-big-val pp-f">0</b>
+            </div>
+            <label class="pp-slider">
+              <span class="pp-slider-lab">$\beta$</span>
+              <input type="range" aria-label="Altezza beta della retta orizzontale">
+              <b class="pp-b">0</b>
+            </label>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">I quadrati sono veri quadrati: il lato è il residuo, e la loro area totale è f. Quattro avanzamenti: i quadrati; beta scende alla media e f diminuisce; beta scende ancora e f risale (alla stessa distanza dalla media f torna uguale); beta torna alla media, la linea verde. Il cursore resta alla classe: chi trova il beta con f più piccola?</aside>
+    </section>
+<section id="pp-resto" class="pp-slide">
+      <div class="pp-inner">
+        <div class="pp-head">
+          <p class="pp-badge">Minimi quadrati senza derivate · 6/10</p>
+          <h2 class="pp-title">Di nuovo: un quadrato più un resto</h2>
+        </div>
+        <div class="pp-eq">
+          <div class="pp-v">$f(\beta)=\sum_i\,(u_i-\beta)^2$</div>
+          <div class="pp-v" data-tex="fnum"></div>
+          <div class="pp-v">$f(\beta)=\textcolor{#23753c}{\sum_i\,(u_i-m_U)^2}+\textcolor{#c5221f}{n\,(m_U-\beta)^2}$</div>
+        </div>
+        <div class="pp-body">
+          <svg class="pp-svg" width="800" height="540" viewBox="0 0 800 540" role="img"
+               aria-label="La somma dei quadrati f al variare di beta: una parabola, che è un resto costante più un quadrato. Il minimo è nella media degli u."></svg>
+          <div class="pp-side" data-prevent-swipe>
+            <div class="pp-say pp-short">
+              <p class="pp-v">Mettiamo $f$ in un grafico, al variare di $\beta$.</p>
+              <p class="pp-v">Viene una parabola.</p>
+              <p class="pp-v">E si scrive come $h(c)$: un resto che non dipende da $\beta$, più un quadrato.</p>
+              <p class="pp-v">Il quadrato vale zero solo in $\beta=m_U$: lì $f$ è minima, e vale il resto.</p>
+              <p class="pp-v">Vale per tutti i dati: il resto non contiene $\beta$, il quadrato si annulla nella media.</p>
+            </div>
+            <div class="pp-big pp-sumbox">
+              <span class="pp-big-lab">f = resto + quadrato</span>
+              <p class="pp-sum"><span class="pp-g">0</span> + <span class="pp-r">0</span> = <b class="pp-t">0</b></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">Collegamento con h(c) = (c − 3)² + 5 di qualche slide fa: stessa forma, stesso modo di leggere il minimo. Se chiedono perché f si scrive così: u − beta = (u − m_U) + (m_U − beta); si eleva al quadrato e si somma; il termine misto contiene la somma degli scarti dalla media, che è zero. Il resto è la somma di (u − m_U)², il quadrato è n (m_U − beta)².</aside>
+    </section>
+<section id="pp-rimetti" class="pp-slide">
+      <div class="pp-inner">
+        <div class="pp-head">
+          <p class="pp-badge">Minimi quadrati senza derivate · 7/10</p>
+          <h2 class="pp-title">Rimettiamo la pendenza</h2>
+        </div>
+        <div class="pp-eq">
+          <div class="pp-v">$\beta=m_U$</div>
+          <div class="pp-v">$\beta=m_U=m_Y-\alpha\,m_X$</div>
+          <div class="pp-v" data-tex="bnum"></div>
+        </div>
+        <div class="pp-body">
+          <svg class="pp-svg" width="800" height="540" viewBox="0 0 800 540" role="img"
+               aria-label="La retta orizzontale all'altezza della media degli u torna inclinata: è la retta con l'intercetta migliore per la pendenza fissata."></svg>
+          <div class="pp-side" data-prevent-swipe>
+            <div class="pp-say">
+              <p class="pp-v">L'altezza migliore è la media degli $u_i$.</p>
+              <p class="pp-v">Rimettiamo la pendenza: la retta orizzontale torna inclinata e passa tra i punti.</p>
+              <p class="pp-v">La media degli $u_i$ è la media delle $y$ meno $\alpha$ volte la media delle $x$.</p>
+              <p class="pp-v">Per <b>ogni</b> pendenza $\alpha$, l'intercetta migliore è $\beta=m_Y-\alpha\,m_X$.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">m_U = m_Y − alfa m_X perché la media di una differenza è la differenza delle medie, e la media di alfa x è alfa volte la media delle x. È il risultato del passo 1. Nell'ultimo avanzamento la formula con i numeri di questi dati.</aside>
+    </section>
+<section id="pp-baricentro" class="pp-slide">
+      <div class="pp-inner">
+        <div class="pp-head">
+          <p class="pp-badge">Minimi quadrati senza derivate · 8/10</p>
+          <h2 class="pp-title">La retta passa per il baricentro</h2>
+        </div>
+        <div class="pp-eq">
+          <div class="pp-v">$\hat y=\alpha\,x+\beta$</div>
+          <div class="pp-v">$\hat y=\alpha\,x+\textcolor{#1f4e78}{m_Y-\alpha\,m_X}$</div>
+          <div class="pp-v">$\hat y=m_Y+\alpha\,(x-m_X)$</div>
+          <div class="pp-v">$x=m_X:\qquad \hat y=m_Y+\alpha\cdot 0=m_Y$</div>
+        </div>
+        <div class="pp-body">
+          <svg class="pp-svg" width="800" height="540" viewBox="0 0 800 540" role="img"
+               aria-label="La retta con l'intercetta migliore passa per il baricentro, il punto con le medie delle x e delle y."></svg>
+          <div class="pp-side" data-prevent-swipe>
+            <div class="pp-say">
+              <p class="pp-v">La retta con l'intercetta migliore, per la pendenza che abbiamo fissato.</p>
+              <p class="pp-v">Il punto (media delle $x$; media delle $y$) è il baricentro dei punti. La retta ci passa.</p>
+              <p class="pp-v">Perché? Mettiamo nella retta l'intercetta migliore.</p>
+              <p class="pp-v">Raccogliamo $\alpha$.</p>
+              <p class="pp-v">In $x=m_X$ la parentesi vale zero: $\hat y=m_Y$, qualunque sia $\alpha$.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">Prima si guarda (il baricentro e la retta che ci passa), poi si spiega con tre righe di algebra. Il punto chiave è l'ultima riga: il risultato non dipende da alfa.</aside>
+    </section>
+<section id="pp-ventaglio" class="pp-slide">
+      <div class="pp-inner">
+        <div class="pp-head">
+          <p class="pp-badge">Minimi quadrati senza derivate · 9/10</p>
+          <h2 class="pp-title">Cambiamo la pendenza: il ventaglio</h2>
+        </div>
+        <div class="pp-eq">
+          <div class="pp-v">$\hat y=m_Y+\alpha\,(x-m_X)$</div>
+        </div>
+        <div class="pp-body">
+          <svg class="pp-svg" width="800" height="540" viewBox="0 0 800 540" role="img"
+               aria-label="Cambiando la pendenza, la retta con l'intercetta migliore ruota attorno al baricentro e lascia un ventaglio di rette."></svg>
+          <div class="pp-side" data-prevent-swipe>
+            <div class="pp-say pp-short">
+              <p class="pp-v">Ogni pendenza ha la sua intercetta migliore.</p>
+              <p class="pp-v">Più pendenza: l'intercetta scende e la retta gira attorno al baricentro.</p>
+              <p class="pp-v">Meno pendenza: gira dall'altra parte. Il perno resta lì.</p>
+              <p class="pp-v">Tutte le rette migliori passano per il baricentro: un ventaglio.</p>
+            </div>
+            <label class="pp-slider">
+              <span class="pp-slider-lab">$\alpha$</span>
+              <input type="range" aria-label="Pendenza alfa">
+              <b class="pp-a">0</b>
+            </label>
+            <div class="pp-big">
+              <span class="pp-big-lab">intercetta migliore</span>
+              <span class="pp-big-sub">$\beta=m_Y-\alpha\,m_X=$ <b class="pp-bv">0</b></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">Il punto rosso sull'asse verticale è l'intercetta: scende quando la pendenza sale. Dopo l'ultimo avanzamento il cursore resta al docente. Osservazione utile: per tutte queste rette la somma dei residui è zero, quindi la somma dei residui non basta a scegliere la retta; servono i quadrati.</aside>
+    </section>
+<section id="pp-quale" class="pp-slide">
+      <div class="pp-inner">
+        <div class="pp-head">
+          <p class="pp-badge">Minimi quadrati senza derivate · 10/10</p>
+          <h2 class="pp-title">Quale retta del ventaglio?</h2>
+        </div>
+        <div class="pp-eq">
+          <div class="pp-v">$f(\alpha)=\sum_i\,\big(y_i-\hat y_i\big)^2$</div>
+          <div class="pp-v" data-tex="best"></div>
+        </div>
+        <div class="pp-body">
+          <svg class="pp-svg" width="800" height="540" viewBox="0 0 800 540" role="img"
+               aria-label="La somma dei quadrati al variare della pendenza, per le rette del ventaglio: il minimo dà la retta dei minimi quadrati."></svg>
+          <div class="pp-side" data-prevent-swipe>
+            <div class="pp-say pp-short">
+              <p class="pp-v">Per scegliere: di nuovo la somma dei quadrati dei residui.</p>
+              <p class="pp-v">Al variare della pendenza, $f$ disegna un'altra parabola.</p>
+              <p class="pp-v">Il suo minimo dà la retta dei minimi quadrati.</p>
+            </div>
+            <svg class="pp-mini" width="360" height="230" viewBox="0 0 360 230" role="img"
+                 aria-label="La somma dei quadrati al variare della pendenza: una parabola con un minimo."></svg>
+            <div class="pp-big">
+              <span class="pp-big-lab">somma dei quadrati</span>
+              <b class="pp-big-val pp-f">0</b>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">Come si trova questo minimo senza derivate è il passo 2 (note per il docente, sezione 5): lo stesso trucco, un quadrato più un resto, applicato alla pendenza. In un foglio di calcolo sono le funzioni PENDENZA e INTERCETTA.</aside>
+    </section>
     <section class="slide-img"><img src="img/11-626e94e3fc.webp" width="1280" height="720" alt="Il criterio di Gauss e il machine learning · Con l’obiettivo di trovare i valori di α e β che minimizzano la funzione di errore · possiamo anche: 1. scegliere dei valori iniziali per α e β in modo casuale 2. calcolare il gradiente di f, cioè le due derivate parziali e , che indicano la direzione in cui f cresce più rapidamente, così che e indicano la direzione in cui far diminuire f 3. assegnare e dove la costante k, chiamata “learning rate”, controlla la velocità di convergenza 4. ripetere dal passo 2 fino a che i valori di α e β non rimangono costanti · Questo algoritmo si chiama discesa…"></section>
     <section class="slide-img"><img src="img/12-dd84a98869.webp" width="1280" height="720" alt="In laboratorio: la retta migliore · LABORATORIO · Foglio nuovo. A1 settimana, B1 vendite (migliaia di €) A2:A11 le settimane 1…10; B2:B11: 3 5 4 6 8 7 9 11 10 12 Grafico a dispersione di A1:B11. Che retta disegneresti a occhio? Retta di prova: I2 (pendenza) = 1, I3 (intercetta) = 2 C2: =$I$2*A2+$I$3 D2: =B2-C2 (residuo) E2: =D2^2 fino alla riga 11 I4: =SOMMA(E2:E11) la somma dei quadrati dei residui Gara: cambia I2 e I3. Chi ottiene la somma più piccola? Poi: =PENDENZA(B2:B11;A2:A11) =INTERCETTA(B2:B11;A2:A11)"></section>
     <section class="slide-img"><img src="img/13-1f04483914.webp" width="1280" height="720" alt="Mettiti alla prova! Quanto costa produrre? · CHALLENGE · Un&#x27;azienda ha un costo fisso di 500 € al giorno e spende 3 € per ogni pezzo; ma i costi veri oscillano a caso, di ±100 €. 1. Simula 30 giorni: pezzi prodotti 10, 20, …, 300; costo = 500 + 3 · pezzi + un numero a caso tra −100 e 100 2. Fai il grafico (pezzi in orizzontale, costo in verticale) 3. Con PENDENZA e INTERCETTA ritrova costo per pezzo e costo fisso: escono 3 e 500? 4. Premi F9 cinque volte: di quanto cambiano? 5. Porta l&#x27;oscillazione a ±500 €: che cosa succede? 6. Che cosa sono, in questo problema, la pendenza e l&#x27;intercetta?"></section>
@@ -47,6 +385,6 @@
     <section class="slide-img"><img src="img/23-4f93fdacd2.webp" width="1280" height="720" alt="In sintesi · RIEPILOGO · • La retta dei minimi quadrati: PENDENZA e INTERCETTA (prima la y, poi la x) • R²: quanto la retta spiega della variabilità della serie (da 0 a 1) • RMSE: di quanto sbaglia di solito, nell&#x27;unità dei dati • Estrapolazione: prolungare la retta fuori dai dati per prevedere; tanto meno affidabile quanto più ci si allontana dai dati La prossima volta (24/11): quando la retta non basta, e che cosa resta nei residui"></section>
     <section class="slide-img"><img src="img/24-0ce523ce87.webp" width="1280" height="720" alt="Biglietto d&#x27;uscita · BIGLIETTO D&#x27;USCITA · Rispondi su un foglietto (3 minuti), senza nome: 1. Nel foglio delle vendite, =PENDENZA(B2:B11;A2:A11) dà 0,96. Che cosa vuol dire, a parole? 2. Una retta di regressione ha R² = 0,2. Che cosa ne pensi? 3. Perché il criterio dei minimi quadrati somma i quadrati dei residui e non i residui così come sono?"></section>
   </div></div>
-  <script>ADSSDeck.start();</script>
+  <script>ADSSDeck.start({ extra: true, extraScripts: ["extra/senza-derivate.js", "extra/passo-passo.js"] });</script>
 </body>
 </html>

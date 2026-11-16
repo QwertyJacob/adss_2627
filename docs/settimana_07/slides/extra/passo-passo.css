@@ -1,0 +1,247 @@
+/*
+ * Slide scritte a mano: la retta dei minimi quadrati senza derivate, piano
+ * piano (dieci slide dopo «un quadrato più un resto»). Una idea per slide:
+ * in alto una formula che si trasforma, al centro il grafico, a destra una o
+ * due frasi che cambiano a ogni avanzamento. Scene: extra/passo-passo.js.
+ */
+
+/* Discendente, non figlia diretta: nella vista di stampa reveal sposta le
+   section dentro .pdf-page e le regole con > non si applicherebbero più. */
+.reveal .slides section.pp-slide {
+  padding: 0;
+  width: 1280px;
+  height: 720px;
+  top: 0;
+  left: 0;
+  background: #fff;
+  color: #1f2937;
+  text-align: left;
+}
+
+.reveal .pp-inner {
+  box-sizing: border-box;
+  width: 1280px;
+  height: 720px;
+  padding: 20px 40px 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.reveal .pp-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 42px;
+}
+
+.reveal .pp-badge {
+  flex: none;
+  margin: 0;
+  padding: 4px 12px;
+  border-radius: 14px;
+  background: #eaf1fd;
+  color: #1f4e78;
+  font: 700 14px Arial, Helvetica, sans-serif;
+  letter-spacing: .3px;
+}
+
+.reveal .pp-title {
+  margin: 0;
+  color: #111827;
+  font: 700 32px/1.1 Arial, Helvetica, sans-serif;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* ── La formula in alto: più versioni sovrapposte, una visibile per volta ── */
+
+.reveal .pp-eq {
+  position: relative;
+  height: 80px;
+  margin: 4px 0 6px;
+  color: #111827;
+  font-size: 30px;
+}
+
+.reveal .pp-eq .pp-v {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+
+.reveal .pp-eq .katex {
+  font-size: 1.25em;
+}
+
+/* ── Corpo: grafico a sinistra, frasi a destra ── */
+
+.reveal .pp-body {
+  display: grid;
+  grid-template-columns: 800px 1fr;
+  gap: 22px;
+}
+
+.reveal .pp-svg {
+  display: block;
+}
+
+.reveal .pp-side {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 6px 0 0 22px;
+  border-left: 1px solid #e5e7eb;
+}
+
+.reveal .pp-say {
+  position: relative;
+  height: 250px;
+}
+
+.reveal .pp-say.pp-short {
+  height: 170px;
+}
+
+.reveal .pp-say .pp-v {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  color: #1f2937;
+  font: 23px/1.42 Arial, Helvetica, sans-serif;
+  opacity: 0;
+}
+
+.reveal .pp-say .katex {
+  font-size: 1.05em;
+}
+
+.reveal .pp-say b {
+  color: #111827;
+}
+
+/* Numero grande, calcolato dai dati. */
+.reveal .pp-big {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.reveal .pp-big-lab {
+  color: #6b7280;
+  font-size: 15px;
+}
+
+.reveal .pp-big-val {
+  color: #111827;
+  font-size: 42px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.reveal .pp-big-sub {
+  color: #4b5563;
+  font-size: 17px;
+  font-variant-numeric: tabular-nums;
+}
+
+.reveal .pp-big-sub .katex {
+  font-size: 1.05em;
+}
+
+.reveal .pp-sum {
+  margin: 0;
+  color: #111827;
+  font-size: 30px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.reveal .pp-sum .pp-g { color: #23753c; }
+.reveal .pp-sum .pp-r { color: #c5221f; }
+
+.reveal .pp-slider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+}
+
+.reveal .pp-slider-lab {
+  color: #1f4e78;
+  font-size: 20px;
+}
+
+.reveal .pp-slider-lab .katex {
+  font-size: 1.1em;
+}
+
+.reveal .pp-slider input[type=range] {
+  flex: 1;
+  min-width: 0;
+  height: 28px;
+  margin: 0;
+  accent-color: #1f4e78;
+}
+
+.reveal .pp-slider b {
+  min-width: 2.8em;
+  padding: 3px 8px;
+  border-radius: 8px;
+  background: #eaf1fd;
+  color: #1f4e78;
+  font-size: 20px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.reveal .pp-mini {
+  display: block;
+}
+
+/* ── Testi dentro i grafici (SVG) ── */
+
+.reveal .pp-svg text,
+.reveal .pp-mini text {
+  font-family: Arial, Helvetica, sans-serif;
+  fill: #4b5563;
+}
+
+.reveal .pp-svg .pp-tick,
+.reveal .pp-mini .pp-tick {
+  font-size: 14px;
+  fill: #6b7280;
+}
+
+.reveal .pp-svg .pp-axis-label,
+.reveal .pp-mini .pp-axis-label {
+  font-size: 17px;
+  font-style: italic;
+  fill: #374151;
+}
+
+.reveal .pp-svg .pp-lab,
+.reveal .pp-mini .pp-lab {
+  font-size: 16px;
+  font-weight: 700;
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+
+.reveal .pp-svg .pp-small {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.reveal .pp-svg .pp-gray, .reveal .pp-mini .pp-gray { fill: #6b7280; }
+.reveal .pp-svg .pp-blue, .reveal .pp-mini .pp-blue { fill: #1f4e78; }
+.reveal .pp-svg .pp-pt { fill: #2563eb; }
+.reveal .pp-svg .pp-u { fill: #b45309; }
+.reveal .pp-svg .pp-green, .reveal .pp-mini .pp-green { fill: #23753c; }
+.reveal .pp-svg .pp-red, .reveal .pp-mini .pp-red { fill: #c5221f; }
+.reveal .pp-svg .pp-dark { fill: #111827; }

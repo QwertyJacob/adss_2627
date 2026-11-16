@@ -1,0 +1,60 @@
+{
+  "insert": [
+    {
+      "after": 10,
+      "html": "senza-derivate.html",
+      "css": [
+        "senza-derivate.css"
+      ],
+      "js": [
+        "senza-derivate.js"
+      ]
+    },
+    {
+      "after": 10,
+      "html": "pp01-fissa.html",
+      "css": [
+        "passo-passo.css"
+      ],
+      "js": [
+        "passo-passo.js"
+      ]
+    },
+    {
+      "after": 10,
+      "html": "pp02-resta.html"
+    },
+    {
+      "after": 10,
+      "html": "pp03-togli.html"
+    },
+    {
+      "after": 10,
+      "html": "pp04-residuo.html"
+    },
+    {
+      "after": 10,
+      "html": "pp05-quadrati.html"
+    },
+    {
+      "after": 10,
+      "html": "pp06-resto.html"
+    },
+    {
+      "after": 10,
+      "html": "pp07-rimetti.html"
+    },
+    {
+      "after": 10,
+      "html": "pp08-baricentro.html"
+    },
+    {
+      "after": 10,
+      "html": "pp09-ventaglio.html"
+    },
+    {
+      "after": 10,
+      "html": "pp10-quale.html"
+    }
+  ]
+}

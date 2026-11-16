@@ -1,0 +1,350 @@
+/*
+ * Slide scritta a mano: il minimo senza derivate, «un quadrato più un resto»
+ * (dopo la slide 10). Stile chiaro, come le slide immagine del pptx intorno:
+ * Arial, fondo bianco. Scena: extra/senza-derivate.js.
+ */
+
+/* Discendente, non figlia diretta: nella vista di stampa reveal sposta le
+   section dentro .pdf-page e le regole con > non si applicherebbero più. */
+.reveal .slides section.qr-slide {
+  padding: 0;
+  width: 1280px;
+  height: 720px;
+  top: 0;
+  left: 0;
+  background: #fff;
+  color: #1f2937;
+  text-align: left;
+}
+
+.reveal .qr-inner {
+  display: grid;
+  grid-template-columns: 752px 1fr;
+  gap: 26px;
+  box-sizing: border-box;
+  width: 1280px;
+  height: 720px;
+  padding: 24px 34px 0 40px;
+}
+
+.reveal .qr-main {
+  min-width: 0;
+}
+
+.reveal .qr-badge {
+  display: inline-block;
+  margin: 0 0 8px;
+  padding: 4px 14px;
+  border-radius: 16px;
+  background: #eaf1fd;
+  color: #1f4e78;
+  font: 700 16px Arial, Helvetica, sans-serif;
+  letter-spacing: .4px;
+}
+
+.reveal .qr-title {
+  margin: 0 0 6px;
+  color: #111827;
+  font: 700 34px/1.14 Arial, Helvetica, sans-serif;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.reveal .qr-lead {
+  margin: 0 0 4px;
+  color: #374151;
+  font: 20px/1.35 Arial, Helvetica, sans-serif;
+}
+
+/* ── La formula, divisa nei suoi due pezzi ── */
+
+.reveal .qr-formula {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  height: 112px;
+  margin: 2px 0 0;
+  color: #111827;
+}
+
+.reveal .qr-formula .katex {
+  font-size: 1.45em;
+}
+
+.reveal .qr-f {
+  padding-top: 8px;
+}
+
+.reveal .qr-part {
+  position: relative;
+  padding: 6px 12px 4px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+}
+
+/* Lo sfondo e il bordo li accende la scena (variabile --on, da 0 a 1). */
+.reveal .qr-sq {
+  --on: 0;
+  border-color: rgb(237 67 53 / calc(var(--on) * 1));
+  background: rgb(237 67 53 / calc(var(--on) * .1));
+}
+
+.reveal .qr-rest {
+  --on: 0;
+  border-color: rgb(56 170 87 / calc(var(--on) * 1));
+  background: rgb(56 170 87 / calc(var(--on) * .12));
+}
+
+.reveal .qr-cap {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  margin-top: 4px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font: 700 15px Arial, Helvetica, sans-serif;
+  opacity: var(--on);
+}
+
+.reveal .qr-cap .katex {
+  font-size: 1.1em;
+}
+
+.reveal .qr-sq .qr-cap { color: #c5221f; }
+.reveal .qr-rest .qr-cap { color: #23753c; }
+
+
+.reveal .qr-svg {
+  display: block;
+  margin: 0;
+}
+
+/* ── Pannello destro ── */
+
+.reveal .qr-panel {
+  padding: 4px 0 0 22px;
+  border-left: 1px solid #e5e7eb;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.reveal .qr-panel .katex {
+  font-size: 1.12em;
+}
+
+.reveal .qr-slider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 16px;
+}
+
+.reveal .qr-slider-lab {
+  color: #1f4e78;
+  font-size: 20px;
+}
+
+.reveal .qr-slider input[type=range] {
+  flex: 1;
+  min-width: 0;
+  height: 28px;
+  margin: 0;
+  accent-color: #1f4e78;
+}
+
+.reveal .qr-c {
+  display: inline-block;
+  min-width: 2.6em;
+  padding: 3px 8px;
+  border-radius: 8px;
+  background: #eaf1fd;
+  color: #1f4e78;
+  font-size: 22px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.reveal .qr-calc {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #f9fafb;
+}
+
+.reveal .qr-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.reveal .qr-lab {
+  color: #4b5563;
+  font-size: 17px;
+}
+
+.reveal .qr-row b {
+  font-size: 23px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.reveal .qr-row-sq b { color: #c5221f; }
+.reveal .qr-row-rest b { color: #23753c; }
+
+.reveal .qr-row-h {
+  margin-top: 2px;
+  padding-top: 7px;
+  border-top: 2px solid #d1d5db;
+}
+
+.reveal .qr-row-h b { color: #111827; }
+
+.reveal .qr-notes {
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.reveal .qr-notes li {
+  position: relative;
+  margin: 0 0 9px;
+  padding-left: 18px;
+  color: #4b5563;
+  font-size: 17px;
+  line-height: 1.35;
+  opacity: .3;
+  transition: opacity .25s, color .25s;
+}
+
+.reveal .qr-notes li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .5em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #cbd5e1;
+}
+
+.reveal .qr-notes li.on {
+  opacity: 1;
+  color: #1f2937;
+}
+
+.reveal .qr-notes li:nth-child(1).on::before { background: #38aa57; }
+.reveal .qr-notes li:nth-child(2).on::before { background: #ed4335; }
+.reveal .qr-notes li:nth-child(3).on::before { background: #1f4e78; }
+
+.reveal .qr-end {
+  padding: 10px 14px;
+  border-left: 4px solid #1f4e78;
+  border-radius: 8px;
+  background: #eaf1fd;
+  opacity: 0;
+}
+
+.reveal .qr-end p {
+  margin: 0 0 6px;
+  color: #1f2937;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.reveal .qr-end .qr-end-big {
+  color: #111827;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.reveal .qr-end .qr-end-small {
+  margin: 0;
+  color: #4b5563;
+  font-size: 14px;
+}
+
+.reveal .qr-end .katex {
+  font-size: 1.05em;
+}
+
+.reveal .qr-hint {
+  margin: 12px 0 0;
+  padding: 7px 12px;
+  border-radius: 8px;
+  background: #f3f4f6;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.reveal .qr-hint .katex {
+  font-size: 1em;
+}
+
+/* ── Testi dentro il grafico (SVG) ── */
+
+.reveal .qr-svg text {
+  font-family: Arial, Helvetica, sans-serif;
+  fill: #4b5563;
+}
+
+.reveal .qr-svg .qr-tick {
+  font-size: 14px;
+  fill: #6b7280;
+}
+
+.reveal .qr-svg .qr-tick-on {
+  font-size: 16px;
+  font-weight: 700;
+  fill: #1f4e78;
+}
+
+.reveal .qr-svg .qr-axis-label {
+  font-size: 16px;
+  font-style: italic;
+  fill: #374151;
+}
+
+.reveal .qr-svg .qr-band-label {
+  font-size: 16px;
+  font-weight: 700;
+  fill: #23753c;
+}
+
+/* Alone bianco: le etichette restano leggibili quando la parabola ci passa sotto. */
+.reveal .qr-svg .qr-sq-label,
+.reveal .qr-svg .qr-min-label,
+.reveal .qr-svg .qr-floor-label {
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+
+.reveal .qr-svg .qr-sq-label {
+  font-size: 16px;
+  font-weight: 700;
+  fill: #c5221f;
+}
+
+.reveal .qr-svg .qr-bar-label {
+  font-size: 16px;
+  font-weight: 700;
+  fill: #fff;
+}
+
+.reveal .qr-svg .qr-min-label {
+  font-size: 17px;
+  font-weight: 700;
+  fill: #1f4e78;
+}
+
+.reveal .qr-svg .qr-floor-label {
+  font-size: 16px;
+  font-weight: 700;
+  fill: #111827;
+}

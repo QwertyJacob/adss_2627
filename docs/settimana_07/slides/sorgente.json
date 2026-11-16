@@ -5,11 +5,11 @@
   "pdf_sha256": null,
   "motore": "LibreOffice",
   "formato": 3,
-  "extra": "",
+  "extra": "d73da064525c258cafab0b35210b1e5f4ca851f327d16b85243bffd88e19a594",
   "titolo": "Lezione 7 · Un modello per le serie storiche: la retta di regressione",
   "argomento": "Un modello per le serie storiche: la retta di regressione",
   "data": "2026-11-17",
-  "slide": 24,
+  "slide": 35,
   "immagini": [
     "01-813db1d70d.webp",
     "02-af341dc3fa.webp",
