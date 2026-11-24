@@ -4,7 +4,7 @@
 # ///
 """Trasforma un file PowerPoint in un mazzo di slide del sito: una immagine per slide.
 
-    uv run scripts/pptx_to_deck.py SORGENTE.pptx --lezione 6 [--data 2026-11-10]
+    uv run scripts/pptx_to_deck.py SORGENTE.pptx --lezione N [--data AAAA-MM-GG]
                                    [--pdf ESPORTATO.pdf] [--titolo "..."] [--forza]
 
 Scrive docs/settimana_NN/slides/:
@@ -80,6 +80,10 @@ MODULI = {
 }
 GIORNI = ["lun", "mar", "mer", "gio", "ven", "sab", "dom"]
 INIZIO, FINE = "<!-- lezioni:inizio -->", "<!-- lezioni:fine -->"
+# Lezioni i cui mazzi non compaiono nell'elenco della home page (non scritte nel sito né
+# in commenti HTML, che resterebbero nel sorgente della pagina). Per mostrarne una: toglierla da qui
+# e lanciare `uv run scripts/pptx_to_deck.py --solo-home`.
+NASCOSTE = {6, 7, 9, 10}
 
 
 def sha256(path: Path) -> str:
@@ -421,7 +425,7 @@ def update_home() -> None:
         decks.append(json.loads(meta_path.read_text()))
     lines = []
     for n, (name, subject, lessons) in MODULI.items():
-        rows = [d for d in decks if d["lezione"] in lessons]
+        rows = [d for d in decks if d["lezione"] in lessons and d["lezione"] not in NASCOSTE]
         if not rows:
             continue
         lines += [f"## {name} · {subject}", "",

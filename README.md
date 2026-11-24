@@ -22,7 +22,7 @@ Qualche rara slide è invece **scritta a mano in HTML + JavaScript** (reveal.js 
 
 `after` è il numero della slide del pptx dopo cui inserire il frammento (slide visibili, contate da 1). Lo script legge il frammento, aggiunge CSS e JS al mazzo e carica KaTeX, GSAP e QRious solo per i mazzi che hanno slide scritte a mano; il JS può usare `PSI.scene` come nel corso PSI. Il mazzo si rigenera anche quando cambia uno di questi file, senza ridisegnare le immagini del pptx.
 
-Con lo stesso meccanismo ci sono i **sondaggi dal vivo** (per esempio nella lezione 6): lo studente inquadra un QR, vota dal telefono in forma anonima e il docente mostra la distribuzione con **V**. La pagina di voto è `docs/vota/`, la configurazione `docs/assets/sondaggi.js`, il motore `docs/assets/slides/sondaggio.js`; i testi delle domande e delle opzioni stanno nella slide scritta a mano.
+Con lo stesso meccanismo ci sono i **sondaggi dal vivo** : lo studente inquadra un QR, vota dal telefono in forma anonima e il docente mostra la distribuzione con **V**. La pagina di voto è `docs/vota/`, la configurazione `docs/assets/sondaggi.js`, il motore `docs/assets/slides/sondaggio.js`; i testi delle domande e delle opzioni stanno nella slide scritta a mano.
 
 ## Struttura
 
@@ -52,7 +52,7 @@ mkdocs.yml                       configurazione del sito (MkDocs Material)
 ## Aggiornare un mazzo
 
 ```bash
-uv run scripts/pptx_to_deck.py percorso/L07_slide.pptx --lezione 7 --data 2026-11-17
+uv run scripts/pptx_to_deck.py percorso/LNN_slide.pptx --lezione N --data AAAA-MM-GG
 ```
 
 Lo script disegna le slide con LibreOffice e `pdftoppm` (pacchetto poppler-utils). Con `--pdf FILE.pdf` usa invece un PDF esportato da PowerPoint dallo stesso pptx, che riproduce esattamente l'impaginazione di PowerPoint. Le note del relatore del pptx compaiono sul tablet. I collegamenti ipertestuali del pptx (su un testo o su una figura) restano cliccabili: lo script ne legge il rettangolo nel PDF e mette sopra l'immagine un link trasparente nello stesso punto, che si apre in una nuova scheda (sul tablet con `?pen` la penna scrive sopra i link). Se il pptx non è cambiato, lo script non rifà nulla. Le immagini hanno l'hash del contenuto nel nome: git vede solo le slide cambiate e il browser non mostra versioni vecchie. Se in `extra/` c'è una slide scritta a mano cambiata, il mazzo si rigenera senza ridisegnare le immagini (non serve LibreOffice).
